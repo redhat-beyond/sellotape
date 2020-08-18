@@ -5,7 +5,7 @@ It introduces an accessible way to listen to podcast and audio streams.
 
 As a podcaster/streamer, you can create your private radio. By accessing your user endpoint, anyone who wants to listen can join your podcast, live djset, or whatever it is you want it to be heard.
 
-As a listener, you can follow your favourite streamers and keep up to date with their streams.
+As a listener, you can follow your favorite streamers and keep up to date with their streams.
 
 ## Project structure
 The platform strives to be a simple social network as users can follow each other and go live whenever they wish to do so.
