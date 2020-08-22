@@ -28,33 +28,38 @@ It is not necessary for merely listening to a live poadcat, as we encourage more
     * Display archeieve of previous streams
 
 ## Technological stack 
-* Backend:
-    * **MVC design pattern with Django framework**.
-    * Database: PostgreSQL.
-        Note: the following db structure may change upon needs.
-        * users table:
-            * user_id, first_name, last_name, username, email, password, city, country, avatar
-            * Primary key: user_id
-        * user_followers table:
-            * user_id, follower_id
-            * Primary key: (user_id, follower_id)
-            * Each of the above columns has a foreign key referencing 'user_id' in 'users' table.
-        * streams table:
-            * stream_id, creator, date, (link to archived stream?)
-            * Primary key: stream_id
-            * creator has a foreign key referencing 'user_id' in 'users' table.
-    * Live audio streaming: [Django Channels](https://channels.readthedocs.io/en/latest/introduction.html) is under consideration - the subject is under research.
 
-* Frontend:
-    * React
-    * HTML/Sass
+#### Backend:
 
-* Environment:
-    * Vagrant (specific virtual box not yet determined)
-    * Python packages conifuged via `requirements.txt`
+* **MVC design pattern with Django framework**.
+* Database: _PostgreSQL_.
+    Note: the following db structure may change upon needs.
+    * `users` table:
+        * `user_id`, `first_name`, `last_name`, `username`, `email`, `password`, `city`, `country`, `avatar`
+        * Primary key: `user_id`
+    * `user_followers` table:
+        * `user_id`, `follower_id`
+        * Primary key: (user_id, follower_id)
+        * Each of the above columns has a foreign key referencing `user_id` in `users` table.
+    * `streams` table:
+        * `stream_id`, `creator_id`, `date`, (link to archived stream?)
+        * Primary key: `stream_id`
+        * `creator_id` has a foreign key referencing `user_id` in `users` table.
+* Live audio streaming:
+    A 3rd party library would come in handy, and we are researching the matter.
+    However, a tool to note here is [Django Channels](https://channels.readthedocs.io/en/latest/introduction.html) which requires more 'hands on' implementation but could possibly serve our puporse in a more pure and clean manner.
 
-* CI/CD:
-    * GitHub Actions workflow to run lint, unit and functional tests with pylint and PyTest.
+#### Frontend:
+* DTL (Django template langauge)
+* HTML/Sass
+
+#### Environment:
+* Vagrant (specific virtual box not yet determined) for development.
+* Python packages managed by [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/).
+
+#### CI/CD:
+* GitHub Actions workflow to run lint, unit and functional tests with pylint and PyTest.
+* Static type checker using [Mypy](http://mypy-lang.org/).
 
 #### Team Members
 Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
