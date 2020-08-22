@@ -30,10 +30,19 @@ It is not necessary for merely listening to a live poadcat, as we encourage more
 ## Technological stack 
 * Backend:
     * **MVC design pattern with Django framework**.
-    * Database: TBD.
-        * users table
-        * user_followers table
-        * streams table
+    * Database: PostgreSQL.
+        Note: the following db structure may change upon needs.
+        * users table:
+            * user_id, first_name, last_name, username, email, password, city, country, avatar
+            * Primary key: user_id
+        * user_followers table:
+            * user_id, follower_id
+            * Primary key: (user_id, follower_id)
+            * Each of the above columns has a foreign key referencing 'user_id' in 'users' table.
+        * streams table:
+            * stream_id, creator, date, (link to archived stream?)
+            * Primary key: stream_id
+            * creator has a foreign key referencing 'user_id' in 'users' table.
     * Live audio streaming: [Django Channels](https://channels.readthedocs.io/en/latest/introduction.html) is under consideration - the subject is under research.
 
 * Frontend:
