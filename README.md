@@ -68,4 +68,8 @@ Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
 1. Install VirtualBox and Vagrant.
 2. Clone this repository.
 3. Open a shell prompt, and switch to the location of the repository.
+<<<<<<< HEAD
 4. Run 'vagrant up'. Once it finished, you're all set!
+=======
+4. Run 'vagrant up'. Once it finished, you're all set!
+>>>>>>> Merged branch 11galpid:dev-userlogin
