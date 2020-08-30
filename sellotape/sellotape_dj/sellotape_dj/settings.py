@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 =======
     'social_django',
     'sellotape_dj.auth_app',
+    'main_app.apps.MainAppConfig'
 ]
 
 AUTHENTICATION_BACKENDS = (

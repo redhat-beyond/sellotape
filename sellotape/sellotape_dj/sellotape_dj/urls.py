@@ -23,6 +23,7 @@ urlpatterns = [
 from django.urls import path, include
 
 urlpatterns = [
+    path('', include('main_app.urls')),
     path('auth_app/', include('sellotape_dj.auth_app.urls')),
 >>>>>>> Merged branch 11galpid:dev-userlogin
 ]
