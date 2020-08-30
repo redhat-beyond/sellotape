@@ -1,13 +1,21 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'sellotape/style.css' %}"
+{% extends 'sellotape/base.html' %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Sellotape</title>
-    </head>
-    <body>
-        <p>Main page.</p>
-    </body>
-</html>
+{% block content %}
+    <div class="landing">
+        <h1>Welcome to Sellotape.</h1>
+        <p>
+            Sellotape introduces an accessible way to listen to podcasts and audio streams.
+        </p>
+        <p>
+            It serves as a simple social network, helping streamers and listeners to easily access and expose
+            their live content as it centralizes streams from many popular streaming sources.
+            As a listener, you can follow your favorite streamers and keep up to date with their streams.
+            As a podcaster/streamer, you can expose yourself better - by providing centralized information
+            on previous, present and future streams.
+        </p>
+        <p>
+            Our philosophy is that there should be no alienation between a streamer and a listener,
+            and we engage and strive to push the interaction between them as possible.
+        </p>
+    </div>
+{% endblock %}
