@@ -63,3 +63,9 @@ It is not necessary for merely listening to a live poadcat, as we encourage more
 
 #### Team Members
 Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
+
+## Setting up a development environment using Vagrant
+1. Install VirtualBox and Vagrant.
+2. Clone this repository.
+3. Open a shell prompt, and switch to the location of the repository.
+4. Run 'vagrant up'. Once it finished, you're all set!
