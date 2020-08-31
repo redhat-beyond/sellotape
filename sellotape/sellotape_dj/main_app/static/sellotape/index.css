@@ -1,21 +1,7 @@
-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #c0d3ec;
-    font-weight: 300;
-    padding: 50px;
-}
-
-h1 {
-    font-weight: 300;
-}
-
-.landing {
+.landing-main {
     line-height: 150%;
     font-size: 20px;
-}
-
-.center {
-    text-align: center;
+    font-weight: 100;
 }
 
 .sign-in {

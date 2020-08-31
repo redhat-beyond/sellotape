@@ -5,7 +5,8 @@
     <head>
         <meta charset="utf-8">
         <title>Sellotape</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'sellotape/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'sellotape/base.css' %}">
+        {% block customlinks %}{% endblock %}
     </head>
 
     <body>

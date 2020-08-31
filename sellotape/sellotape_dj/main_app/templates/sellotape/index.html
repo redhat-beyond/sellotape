@@ -1,7 +1,12 @@
 {% extends 'sellotape/base.html' %}
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'sellotape/index.css' %}">
+{% endblock %}
 
 {% block content %}
-    <div class="landing">
+    <div class="landing-main">
         <h1>Welcome to Sellotape.</h1>
         <p>
             Sellotape introduces an accessible way to listen to podcasts and streams.
