@@ -1,6 +1,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #b9d0ee;
+    background-color: #c0d3ec;
     font-weight: 300;
     padding: 50px;
 }
@@ -12,4 +12,20 @@ h1 {
 .landing {
     line-height: 150%;
     font-size: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+.sign-in {
+    color: black;
+    margin-top: 50px;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 3px 22px;
+    border: 2px solid #c7e7fd;
+    background-color: #d3eaf8;
+    display: inline-block;
+    text-decoration: none;
 }
