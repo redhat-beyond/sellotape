@@ -42,11 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 <<<<<<< HEAD
+<<<<<<< HEAD
 ]
 
 =======
     'social_django',
     'sellotape_dj.auth_app',
+=======
+>>>>>>> Removed auth_app from this branch.
     'main_app.apps.MainAppConfig'
 ]
 

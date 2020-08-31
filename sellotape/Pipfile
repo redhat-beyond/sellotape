@@ -8,9 +8,12 @@ verify_ssl = true
 [packages]
 django = "*"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 social-auth-app-django = "*"
 >>>>>>> Merged branch 11galpid:dev-userlogin
+=======
+>>>>>>> Removed auth_app from this branch.
 
 [requires]
 python_version = "3.8"
