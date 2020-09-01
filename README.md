@@ -3,7 +3,7 @@
 Sellotape is a modern audio podcast platform.
 It introduces an accessible way to listen to podcast and streams.
 
-It serves as a simple social network, helping streamers and listeners to easily access and expose their live content as it centralizes streams from many popular streaming sources.            
+It serves as a simple social network, helping streamers and listeners to easily access and expose their live content as it centralizes streams from many popular streaming sources.
 
 As a podcaster/streamer, you can expose yourself better - by providing centralized information on previous, present and future streams.
 
