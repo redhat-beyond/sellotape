@@ -20,19 +20,12 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
 SECRET_KEY = 'gtk7i_g+v%afq6dvplwms_-*r3j7uj-k6g4b&&iu#ys-e(ui)0'
-=======
-SECRET_KEY = 'ex=bk-ud459ee=-h^aw9zab-_+3b-6@nu2sr)=c!b*tyflq2n1'
->>>>>>> Merged branch 11galpid:dev-userlogin
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '0.0.0.0',
-    '127.0.0.1',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -44,25 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-<<<<<<< HEAD
+    'main_app.apps.MainAppConfig',
 ]
 
-=======
-    'social_django',
-    'sellotape_dj.auth_app',
-=======
->>>>>>> Removed auth_app from this branch.
-    'main_app.apps.MainAppConfig'
-]
-
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
->>>>>>> Merged branch 11galpid:dev-userlogin
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -86,11 +63,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-<<<<<<< HEAD
-=======
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
->>>>>>> Merged branch 11galpid:dev-userlogin
             ],
         },
     },
@@ -147,41 +119,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-<<<<<<< HEAD
-=======
-
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'login'
-
-SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.social_details',
-    'social_core.pipeline.social_auth.social_uid',
-    'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.user.get_username',
-    'social_core.pipeline.social_auth.associate_by_email',
-    'social_core.pipeline.user.create_user',
-    'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',
-)
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '87810693431-99al9o78efneb8dpuvhkkldmdon2n7tm.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'tE0ozgpTfEvcPz9b5RzRdwKL'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
-SOCIAL_AUTH_GOOGLE_OAUTH2_PROFILE_EXTRA_PARAMS = {
-  'fields': 'id, name, email, picture.type(large)'
-}
-SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = [
-    ('name', 'name'),
-    ('email', 'email'),
-    ('picture', 'picture')
-]
-
-SOCIAL_AUTH_FACEBOOK_KEY = "337762567421238"        # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = "f90f36fc0409c0c350a1767e873716d7"  # App Secret
-SOCIAL_AUTH_FACEBOOK_SCOPE = SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = SOCIAL_AUTH_GOOGLE_OAUTH2_PROFILE_EXTRA_PARAMS
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA
->>>>>>> Merged branch 11galpid:dev-userlogin
