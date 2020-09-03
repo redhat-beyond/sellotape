@@ -1,2 +1,6 @@
 .vagrant/
 desktop.ini
+.DS_Store
+
+# Django local SQLite3 DB
+db.sqlite3

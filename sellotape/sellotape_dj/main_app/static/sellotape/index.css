@@ -1,0 +1,17 @@
+.landing-main {
+    line-height: 150%;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.sign-in {
+    color: black;
+    margin-top: 50px;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 3px 22px;
+    border: 2px solid #c7e7fd;
+    background-color: #d3eaf8;
+    display: inline-block;
+    text-decoration: none;
+}
