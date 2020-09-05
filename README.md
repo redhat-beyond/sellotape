@@ -69,3 +69,21 @@ Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
 2. Clone this repository.
 3. Open a shell prompt, and switch to the location of the repository.
 4. Run 'vagrant up'. Once it finished, you're all set!
+
+## Starting up the project from scratch
+1. `cd /vagrant/sellotape && pipenv shell` (Start the pipenv python packages context)
+2. `cd sellotape_dj && python manage.py migrate` (Initialize the database)
+3. Edit the file sellotape/sellotape_dj/settings.py and plug in the "Secret" and "Key" for both Google-oauth2 and Facebook.
+4. `python manage.py runserver 0:8000` (Start the server)
+5. Browse into http://localhost:8000
+
+*Steps 2 & 3 are required only ONCE.
+** Note that both Facebook & Google oauth2 api key's are set to domain "localhost:8000", please use this specific combination to use the webpage otherwise it won't work!
+
+## Setting up superuser
+1. `cd /vagrant/sellotape/sellotape_dj && python manage.py createsuperuser`
+2. Follow the onscreen procedure, make sure to fill in & remember both `username` and `password`.
+
+# Shortcuts/Aliases
+For you convenience, we've set up a few aliases to ease up Start/Stop/Restart actions of the project.
+Usage: `start_sellotape`, `stop_sellotape`, `restart_sellotape` to start/stop/restart sellotape.
