@@ -12,6 +12,9 @@ Vagrant.configure("2") do |config|
   # => Makes it two-way sync
   config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 
+  # Shortcuts used later inside dev vm
+  config.vm.provision "file", source: "aliases.sh", destination: "~/.aliases.sh"
+  
   # Initialization scripts
   config.vm.provision "shell", privileged: true,
     path: "./init_scripts/init-root.sh"
