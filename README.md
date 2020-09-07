@@ -68,3 +68,12 @@ Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
 2. Clone this repository.
 3. Open a shell prompt, and switch to the location of the repository.
 4. Run 'vagrant up'. Once it finished, you're all set!
+
+## Setting up superuser
+A superuser is automatically created in the provisioning scripts, you can change the default username and password in there BEFORE running `vagrant up`.
+The defaults are currently 'admin', '123456'.
+
+# Shortcuts/Aliases
+For you convenience, we've set up a few aliases to ease up Start/Stop/Restart actions of the project.
+Usage: `start_sellotape`, `stop_sellotape`, `restart_sellotape` to start/stop/restart sellotape.
+Upon project creation, `start_sellotape` is run automatically.
