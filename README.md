@@ -44,9 +44,9 @@ It is not necessary though for viewing schedueld streams of other users, as we e
         * Primary key: `user_follower_id`
         * `user_id` and `follower_id` are foreign keys referencing `user_id` in `users` table.
     * `streams` table:
-        * `stream_id`, `creator_id`, `date`, `link` to stream
-        * Primary key: `stream_id`
-        * `creator_id` has a foreign key referencing `user_id` in `users` table.
+        * `id`, `author`, `link`, `airs_on`, `ends_on`, `added_on`
+        * Primary key: `id`
+        * `author` has a foreign key referencing `user_id` in `users` table.
 
 #### Frontend:
 * DTL (Django template langauge)
