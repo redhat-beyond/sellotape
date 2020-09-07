@@ -70,16 +70,11 @@ Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
 3. Open a shell prompt, and switch to the location of the repository.
 4. Run 'vagrant up'. Once it finished, you're all set!
 
-## Starting up the project from scratch
-1. `cd /vagrant/sellotape && pipenv shell` (Start the pipenv python packages context)
-2. `cd sellotape_dj && python manage.py migrate` (Initialize the database)
-3. `python manage.py runserver 0:8000` (Start the server)
-4. Browse into http://localhost:8000
-
 ## Setting up superuser
-1. `cd /vagrant/sellotape/sellotape_dj && python manage.py createsuperuser`
-2. Follow the onscreen procedure, make sure to fill in & remember both `username` and `password`.
+A superuser is automatically created in the provisioning scripts, you can change the default username and password in there BEFORE running `vagrant up`.
+The defaults are currently 'admin', '123456'.
 
 # Shortcuts/Aliases
 For you convenience, we've set up a few aliases to ease up Start/Stop/Restart actions of the project.
 Usage: `start_sellotape`, `stop_sellotape`, `restart_sellotape` to start/stop/restart sellotape.
+Upon project creation, `start_sellotape` is run automatically.
