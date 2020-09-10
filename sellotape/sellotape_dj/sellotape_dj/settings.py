@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main_app.apps.MainAppConfig',
+    'chat',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +76,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sellotape_dj.wsgi.application'
+ASGI_APPLICATION = 'sellotape_dj.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database
