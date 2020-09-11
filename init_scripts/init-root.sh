@@ -3,5 +3,5 @@
 # Should be set in the Vagrantfilee to run once as root.
 
 # Install basic manipulation packages
-dnf -y install vim dos2unix lsof
+dnf -y install vim dos2unix lsof gcc python3-devel
 echo "-----1ST INIT DONE-----"
