@@ -1,5 +1,4 @@
-
-from django.urls import path, re_path
+from django.urls import path
 from .views import index, room
 
 
@@ -7,5 +6,5 @@ app_name = 'chat'
 
 urlpatterns = [
     path('', index, name = 'index'),
-    re_path(r'^(?P<room_name>[^/]+)/$', room, name='room'),
+    path('<str:room_name>/', room, name='room'),
 ]
