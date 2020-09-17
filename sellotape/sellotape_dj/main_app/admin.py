@@ -17,7 +17,7 @@ class UserProfile(models.Model):
         hamerkaz = '2', 'HaMerkaz'
         hadarom = '3', 'HaDarom'
         hatzafon = '4', 'HaTzafon'
-
+    
     city = models.IntegerField(
         choices=City.choices,
         default=City.tel_aviv,
