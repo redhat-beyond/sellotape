@@ -7,6 +7,11 @@ verify_ssl = true
 
 [packages]
 django = "*"
+channels = "*"
+channels_redis = "*"
+flake8 = "*"
+pytest-django = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.8"
