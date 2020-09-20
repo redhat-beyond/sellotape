@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container-fluid main text-center main">
+    <h1 class="main-title display-4 btn-secondary rounded-sm text-white">
+        <span style="font-size: 2rem;color:white">
+          <i class="fas fa-signature"></i>
+        </span>
+        Sign up
+    </h1>
+    <div class="row h-100 align-items-top justify-content-md-center">
+        <div class="col-8">
+            <div class="card h-auto p-3 overflow-auto">
+                Hey there! please choose your preferred authentication method and join us here at Sellotape!
+                <div class="row justify-content-md-center">
+                    <div class="col-3">
+                        <a href="" style="font-size: 1rem;color:#dc3545">
+                          <span style="font-size: 5rem;color:#dc3545">
+                            <i class="fab fa-google-plus"></i>
+                          </span><br />
+                            Google
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="" style="font-size: 1rem;color:#3b5998">
+                          <span style="font-size: 5rem;color:#3b5998">
+                            <i class="fab fa-facebook"></i>
+                          </span><br />
+                            Facebook
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a data-toggle="collapse" href="#manualLogin" role="button" aria-expanded="false" aria-controls="manualLogin" style="font-size: 1rem;color:gray">
+                          <span style="font-size: 5rem;color:gray">
+                            <i class="fas fa-at"></i>
+                          </span><br />
+                            Manual (DEBUG)
+                        </a>
+                    </div>
+                </div>
+            </div>
+<div class="collapse" id="manualLogin">
+  <div class="card h-auto p-3 mt-2 overflow-auto card-body">
+<h2>Log In</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Log In</button>
+</form>
+  </div>
+</div>
+        </div>
+    </div>
+</main>
+{% endblock %}

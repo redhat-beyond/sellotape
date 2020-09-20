@@ -9,3 +9,9 @@ body {
   background-size: cover;
   -o-background-size: cover;
 }
+
+/* Footer */
+footer {
+  background-color:#343a40;
+  opacity:1;
+}

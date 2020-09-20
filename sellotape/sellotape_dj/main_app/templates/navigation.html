@@ -1,6 +1,6 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Sellotape</a>
+      <a class="navbar-brand" href="/">Sellotape</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -13,9 +13,23 @@
             <a class="nav-link" href="#">Explore <span class="badge badge-light">4</a>
           </li>
         </ul>
+        {% if user.is_authenticated %}
+        <div class="bg-dark text-white">
+           Welcome {{user.username}} &nbsp;
+            <a href="{% url 'logout' %}">
+             <input type="button" class="btn btn-info my-2 my-sm-0" value="Logout" />
+            </a>
+            <a href="{% url 'logout' %}">
+             <input type="button" class="btn btn-danger my-2 my-sm-0" value="Edit Profile" />
+            </a>
+        </div>
+        {% else %}
         <form class="form-inline mt-2 mt-md-0">
-            <button class="btn btn-info my-2 my-sm-0">Sign in</button>
+            <a href="{% url 'login' %}">
+             <input type="button" class="btn btn-info my-2 my-sm-0" value="Sign up" />
+            </a>
         </form>
+        {% endif %}
       </div>
     </nav>
 </header>
