@@ -1,4 +1,5 @@
 from django.shortcuts import render
 
-def index(request):
-    return render(request, 'sellotape/index.html')
+
+def landing(request):
+    return render(request, 'landing.html')
