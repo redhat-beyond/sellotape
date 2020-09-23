@@ -37,7 +37,7 @@ It is not necessary though for viewing schedueld streams of other users, as we e
 * Database: _PostgreSQL_.
     Note: the following db structure may change upon needs.
     * `users` table:
-        * `user_id`, `first_name`, `last_name`, `username`, `email`, `password`, `city`, `country`, `avatar`
+        * `user_id`, `first_name`, `last_name`, `username`, `email`, `password`, `city`, `country`, `avatar`, `youtube_link`, `twitch_link`
         * Primary key: `user_id`
     * `user_followers` table:
         * `user_follower_id`, `user_id`, `follower_id`

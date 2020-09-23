@@ -8,6 +8,8 @@ class Profile(models.Model):
     # User avatar, optional: limit the image instance height and width
     avatar = models.ImageField()
     country = models.CharField(max_length=100, default='Israel')
+    youtube_link = models.URLField(max_length=200)
+    twitch_link = models.URLField(max_length=200)
     
     class City(models.IntegerChoices):
         tel_aviv = '1', 'Tel Aviv'
