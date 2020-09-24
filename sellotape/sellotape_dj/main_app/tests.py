@@ -2,19 +2,22 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 
-from .models import Stream
+from .models import Stream, Profile
 from django.contrib.auth.models import User
 
 from django.template.loader import render_to_string
 
 
+
 class UserTemplateTests(TestCase):
     def test_shows_profile_name(self):
         """It should display the first and last name of the user."""
-        user = {
-            'username': 'darth-vader',
-            'first_name': 'Darth',
-            'last_name': 'Vader'
+        profile = {
+            'user': {
+                'username': 'darth-vader',
+                'first_name': 'Darth',
+                'last_name': 'Vader'
+            }
         }
 
         html = render_to_string('sellotape/user.html', {'profile': user})
@@ -41,7 +44,9 @@ class UserTemplateTests(TestCase):
         }
 
         context = {
-            'profile': user,
+            'profile': {
+                'user': user,
+            },
             'live_stream': live_stream
         }
 
@@ -94,16 +99,15 @@ class UserViewTests(TestCase):
 
     def test_no_streams(self):
         """
-        If no streams are available, an appropriate message is displayed.
+        If no streams are available, it should response with the right context.
         """
         username = 'darth-vader'
-        create_user(username)
+        create_profile(username)
 
         url = reverse('main_app:user', args=(username,))
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, "No streams are available.")
         self.assertQuerysetEqual(response.context['future_streams'], [])
         self.assertQuerysetEqual(response.context['previous_streams'], [])
         self.assertTemplateUsed(response, 'sellotape/user.html')
@@ -114,7 +118,7 @@ class UserViewTests(TestCase):
         it should be passed to the response context.
         """
         username = 'darth-vader'
-        user = create_user(username)
+        user = create_profile(username)
         
         now = timezone.now()
         streams = [
@@ -141,7 +145,7 @@ class UserViewTests(TestCase):
         and the streams data.
         """
         username = 'darth-vader'
-        user = create_user(username)
+        user = create_profile(username)
 
         now = timezone.now()
         streams = [
