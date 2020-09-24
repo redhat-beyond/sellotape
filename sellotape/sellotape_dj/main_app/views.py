@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from .models import Stream
+from .models import Stream, Profile
 
 
 def index(request):
@@ -9,8 +9,9 @@ def index(request):
 
 def user(request, username):
     # Get the profile for the passed username or raise 404 if not found.
-    user = get_object_or_404(User, username=username)
-    streams = Stream.objects.filter(author=user)
+    # If found, retrieve the related profile streams.
+    profile = get_object_or_404(Profile, user__username=username)
+    streams = Stream.objects.filter(author=profile)
 
     # Check if there is a live stream at the moment.
     live_stream = None
@@ -29,7 +30,7 @@ def user(request, username):
         previous_streams.remove(live_stream)
 
     context = {
-        'profile': user,
+        'profile': profile,
         'future_streams': future_streams,
         'previous_streams': previous_streams,
         'live_stream': live_stream,
