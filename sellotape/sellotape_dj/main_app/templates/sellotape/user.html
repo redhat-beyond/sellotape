@@ -1,0 +1,64 @@
+{% extends 'sellotape/base.html' %}
+
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'sellotape/user.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <a href="/{{profile.username}}">
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+        </a>
+        {% if live_stream %}
+            <span class="red-dot"></span>
+        {% endif %}
+    </div>
+
+    {% if live_stream %}
+        <div class="section">
+            {{ profile.first_name}} is live now at
+            <a class="live-link" href="{{ live_stream.link }}">{{ live_stream.link }}</a>.
+        </div>
+    {% endif %}
+
+    {% if future_streams|length %}
+        <div class="section">
+            <h3>Future Streams</h3>
+            <ul class="streams">
+                {% for stream in future_streams %}
+                    <li>
+                        <h4>{{ stream.title }}</h4>
+                        <p>
+                            Airs on {{ stream.airs_on|date }} <a href="{{ stream.link }}">here</a>.
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if previous_streams|length %}
+        <div class="section">
+            <h3>Previous Streams</h3>
+            <ul class="streams">
+                {% for stream in previous_streams %}
+                    <li>
+                        <h4>{{ stream.title }}</h4>
+                        <p>
+                            Aired on {{ stream.airs_on|date }} <a href="{{ stream.link }}">here</a>. <br/>
+                            The stream ended on {{ stream.ended_on|date }}.
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if not future_streams|length and not previous_streams|length %}
+        <div class="section">
+            <h3>No streams are available.</h3>
+        </div>
+    {% endif %}
+{% endblock %}
