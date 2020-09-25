@@ -22,7 +22,10 @@ class Migration(migrations.Migration):
                 ('country', models.CharField(default='Israel', max_length=100)),
                 ('youtube_link', models.URLField()),
                 ('twitch_link', models.URLField()),
-                ('city', models.IntegerField(choices=[(1, 'Tel Aviv'), (2, 'HaMerkaz'), (3, 'HaDarom'), (4, 'HaTzafon')], default=1)),
+                ('city', models.IntegerField(
+                    choices=[(1, 'Tel Aviv'), (2, 'HaMerkaz'), (3, 'HaDarom'), (4, 'HaTzafon')],
+                    default=1
+                )),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
