@@ -8,8 +8,8 @@ class Profile(models.Model):
     # User avatar, optional: limit the image instance height and width
     avatar = models.ImageField()
     country = models.CharField(max_length=100, default='Israel')
-    youtube_link = models.URLField(max_length=200)
-    twitch_link = models.URLField(max_length=200)
+    youtube_link = models.URLField(max_length=200, null=True)
+    twitch_link = models.URLField(max_length=200, null=True)
     
     class City(models.IntegerChoices):
         tel_aviv = '1', 'Tel Aviv'
@@ -30,6 +30,7 @@ class UserFollowers(models.Model):
 class Stream(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     link = models.URLField(max_length=500, blank=False)
+    description = models.TextField(max_length=50, null=True)
     airs_on = models.DateField()
     ends_on = models.DateField(null=True)
     added_on = models.DateField()
