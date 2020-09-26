@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 # https://docs.djangoproject.com/en/dev/topics/auth/customizing/#extending-the-existing-user-model
+
+
 class Profile(models.Model):
     # Inherits Attributes from User default instance
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -22,10 +23,12 @@ class Profile(models.Model):
         default=City.tel_aviv,
     )   
 
+
 class UserFollowers(models.Model):
     user_followers_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey('self', on_delete=models.CASCADE)
     follower_id	= models.ForeignKey(Profile, on_delete=models.CASCADE)
+
 
 class Stream(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
