@@ -11,7 +11,7 @@ def add_stream(request):
     if request.method == 'POST':  # data sent by user
         form = StreamForm(request.POST)
         if form.is_valid():
-            form.save()  # this will save Car info to database
+            form.save()  # this will save stream info to database
             return HttpResponse('Stream added to your Streams!')
     else:  # display empty form
         form = StreamForm()
