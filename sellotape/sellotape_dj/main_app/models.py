@@ -39,9 +39,9 @@ class Stream(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     link = models.URLField(max_length=500, blank=False)
     description = models.TextField(max_length=50, blank=True, null=True)
-    airs_on = models.DateField()
-    ends_on = models.DateField(blank=True, null=True)
-    added_on = models.DateField()
+    airs_on = models.DateTimeField()
+    ends_on = models.DateTimeField(blank=True, null=True)
+    added_on = models.DateTimeField()
 
     class Meta:
         ordering = ['airs_on', '-added_on', 'author']
