@@ -23,15 +23,15 @@ class Profile(models.Model):
     )
 
 
-class UserFollowers(models.Model):
-    user_id = models.ForeignKey(Profile, related_name='user_id', on_delete=models.CASCADE)
-    follows = models.ForeignKey(Profile, related_name='follows', on_delete=models.CASCADE)
+class UserFollower(models.Model):
+    user = models.ForeignKey(Profile, related_name='users', on_delete=models.CASCADE)
+    follows = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user_id', 'follows')
+        unique_together = ('user', 'follows')
 
     def clean(self):
-        if self.user_id == self.follows:
+        if self.user == self.follows:
             raise ValueError("One Cannot follow himself")
 
 
