@@ -24,15 +24,15 @@ class Profile(models.Model):
 
 
 class UserFollowers(models.Model):
-    follow_from = models.ForeignKey(Profile, related_name='follow_from', on_delete=models.CASCADE)
-    follow_to = models.ForeignKey(Profile, related_name='follow_to', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(Profile, related_name='user_id', on_delete=models.CASCADE)
+    follows = models.ForeignKey(Profile, related_name='follows', on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('follow_from', 'follow_to')
+        unique_together = ('user_id', 'follows')
 
     def clean(self):
-        if self.follow_from == self.follow_to:
-            raise ValueError("One Cannot follow themselves")
+        if self.user_id == self.follows:
+            raise ValueError("One Cannot follow himself")
 
 
 class Stream(models.Model):
