@@ -1,11 +1,11 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.models import User
 from .models import Stream, Profile
 
 
 def index(request):
     return render(request, 'sellotape/index.html')
+
 
 def user(request, username):
     # Get the profile for the passed username or raise 404 if not found.
@@ -17,7 +17,7 @@ def user(request, username):
     live_stream = None
     now = timezone.now()
     for s in streams:
-        ongoing = s.ends_on == None or s.ends_on >= now
+        ongoing = s.ends_on is None or s.ends_on >= now
         if ongoing and s.airs_on <= now:
             live_stream = s
             break

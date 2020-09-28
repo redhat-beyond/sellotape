@@ -1,9 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
 
-from ..models import Stream, Profile
-from django.contrib.auth.models import User
-
 from django.template.loader import render_to_string
 
 
@@ -18,14 +15,14 @@ class UserTemplateTests(TestCase):
             }
         }
 
-        html = render_to_string('sellotape/user.html', { 'profile': profile })
+        html = render_to_string('sellotape/user.html', {'profile': profile})
         self.assertTrue('<h2>Darth Vader</h2>' in html)
 
     def test_shows_no_streams_message(self):
         """It should display an appropriate message when no streams are available."""
-        user = { 'username': 'darth-vader' }
-        profile = { 'user': user }
-        html = render_to_string('sellotape/user.html', { 'profile': profile })
+        user = {'username': 'darth-vader'}
+        profile = {'user': user}
+        html = render_to_string('sellotape/user.html', {'profile': profile})
         self.assertTrue('<h3>No streams are available.</h3>' in html)
 
     def test_shows_live_stream(self):
@@ -58,11 +55,11 @@ class UserTemplateTests(TestCase):
         date = timezone.datetime(2025, 1, 1)
 
         future_streams = [
-            { 'title': 'Stream 1', 'airs_on': date },
-            { 'title': 'Stream 2', 'airs_on': date }
+            {'title': 'Stream 1', 'airs_on': date},
+            {'title': 'Stream 2', 'airs_on': date}
         ]
 
-        context = { 'future_streams': future_streams }
+        context = {'future_streams': future_streams}
         html = render_to_string('sellotape/user.html', context)
 
         self.assertTrue('<h3>Future Streams</h3>' in html)
@@ -75,11 +72,11 @@ class UserTemplateTests(TestCase):
         date = timezone.datetime(2018, 1, 1)
 
         future_streams = [
-            { 'title': 'Stream 1', 'airs_on': date },
-            { 'title': 'Stream 2', 'airs_on': date }
+            {'title': 'Stream 1', 'airs_on': date},
+            {'title': 'Stream 2', 'airs_on': date}
         ]
 
-        context = { 'future_streams': future_streams }
+        context = {'future_streams': future_streams}
         html = render_to_string('sellotape/user.html', context)
 
         self.assertTrue('<h3>Future Streams</h3>' in html)

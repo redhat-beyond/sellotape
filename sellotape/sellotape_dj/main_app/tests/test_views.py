@@ -13,12 +13,14 @@ def create_profile(username):
     user = User.objects.create(username=username)
     return Profile.objects.create(user=user)
 
+
 def create_streams(streams):
     """
     Create streams for the test db.
     """
     for stream in streams:
         Stream.objects.create(**stream)
+
 
 class UserViewTests(TestCase):
     def test_user_does_not_exist(self):
@@ -51,7 +53,7 @@ class UserViewTests(TestCase):
         """
         username = 'darth-vader'
         user = create_profile(username)
-        
+
         now = timezone.now()
         streams = [
             {
@@ -66,7 +68,7 @@ class UserViewTests(TestCase):
 
         url = reverse('main_app:user', args=(username,))
         response = self.client.get(url)
-        
+
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['live_stream'])
         self.assertEqual(response.context['live_stream'].title, 'Live Stream')
@@ -105,7 +107,7 @@ class UserViewTests(TestCase):
 
         future_streams = response.context['future_streams']
         previous_streams = response.context['previous_streams']
-        
+
         self.assertTrue(len(future_streams))
         self.assertTrue(len(previous_streams))
         self.assertEqual(future_streams[0].title, 'Future Stream')
