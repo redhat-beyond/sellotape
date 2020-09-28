@@ -22,7 +22,10 @@ class Migration(migrations.Migration):
                 ('country', models.CharField(default='Israel', max_length=100)),
                 ('youtube_link', models.URLField(blank=True)),
                 ('twitch_link', models.URLField(blank=True)),
-                ('city', models.IntegerField(choices=[(1, 'Tel Aviv'), (2, 'HaMerkaz'), (3, 'HaDarom'), (4, 'HaTzafon')], default=1)),
+                ('city', models.IntegerField(
+                    choices=[(1, 'Tel Aviv'), (2, 'HaMerkaz'), (3, 'HaDarom'), (4, 'HaTzafon')],
+                    default=1
+                )),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -48,7 +51,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('follows', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main_app.profile')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='users', to='main_app.profile')),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='users',
+                    to='main_app.profile'
+                )),
             ],
             options={
                 'unique_together': {('user', 'follows')},
