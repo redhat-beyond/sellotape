@@ -1,0 +1,14 @@
+/* User page
+-------------------------------------------------- */
+main {
+    background-color: rgba(255,255,255,0.2);
+    height: 32rem;
+    padding-bottom: 4rem;
+    margin-bottom: 0rem;
+}
+
+h1.main-title {
+    display:inline-block;
+    width:400px;
+    background:rgba(255,255,255,0.4);
+}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'user.css' %}">
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container-fluid main text-center main">
+
+    <h1 class="main-title display-4 btn-secondary rounded-sm text-white">
+        <span style="font-size: 2rem;color:white">
+          <i class="fas fa-stream"></i>
+        </span>
+        Streams
+    </h1> <br />
+    <div class="btn-group block mb-2" role="group" aria-label="Stream buttons">
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#previousStreams" role="button" aria-expanded="false" aria-controls="previousStreams">
+            Past Streams <span class="badge badge-light">{{ previous_streams|length }}</span>
+        </button>
+        <button type="button" class="btn btn-danger collapsed {% if not live_stream %} disabled btn-secondary {% endif %}" data-toggle="collapse" href="#nowLive" role="button" aria-expanded="false" aria-controls="nowLive">
+            {% if live_stream %}
+            <span class="font-weight-bold">Now Live</span>
+            {% else %}
+            No Live Stream
+            {% endif %}
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#futureStreams" role="button" aria-expanded="false" aria-controls="futureStreams">
+            Future Streams <span class="badge badge-light">{{ future_streams|length }}
+        </span></button>
+    </div>
+    <div id="streams">
+        <div id="previousStreams" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not previous_streams %}
+                        No past streams!
+                    {% else %}
+                        <h1 style="display-4">Past streams</h1>
+                    {% endif %}
+                    {% for stream in previous_streams %}
+                      <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ stream.title }} </h5>
+                          <small>Aired on {{ stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="futureStreams" class="collapse show row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not future_streams %}
+                        No future streams scheduled yet!
+                    {% else %}
+                        <h1 style="display-4">Future streams</h1>
+                    {% endif %}
+                    {% for stream in future_streams %}
+                      <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ stream.title }} </h5>
+                          <small>Airs on {{ stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="nowLive" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto list-group-item-danger">
+                    <div class="list-group">
+                    {% if not live_stream %}
+                        No live stream!
+                    {% else %}
+                      <a href="{{ live_stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ live_stream.title }} </h5>
+                          <small>Airs on {{ live_stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}
