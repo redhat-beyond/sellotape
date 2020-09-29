@@ -7,19 +7,22 @@ from django.template.loader import render_to_string
 class UserTemplateTests(TestCase):
     def test_shows_profile_name(self):
         """It should display the first and last name of the user."""
-        user = {
-            'username': 'darth-vader',
-            'first_name': 'Darth',
-            'last_name': 'Vader'
+        profile = {
+            'user': {
+                'username': 'darth-vader',
+                'first_name': 'Darth',
+                'last_name': 'Vader'
+            }
         }
 
-        html = render_to_string('sellotape/user.html', {'profile': user})
+        html = render_to_string('sellotape/user.html', {'profile': profile})
         self.assertTrue('<h2>Darth Vader</h2>' in html)
 
     def test_shows_no_streams_message(self):
         """It should display an appropriate message when no streams are available."""
         user = {'username': 'darth-vader'}
-        html = render_to_string('sellotape/user.html', {'profile': user})
+        profile = {'user': user}
+        html = render_to_string('sellotape/user.html', {'profile': profile})
         self.assertTrue('<h3>No streams are available.</h3>' in html)
 
     def test_shows_live_stream(self):
@@ -37,7 +40,9 @@ class UserTemplateTests(TestCase):
         }
 
         context = {
-            'profile': user,
+            'profile': {
+                'user': user,
+            },
             'live_stream': live_stream
         }
 

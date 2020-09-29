@@ -9,7 +9,7 @@
 {% block content %}
     <div class="header">
         <a href="/{{profile.username}}">
-            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
         </a>
         {% if live_stream %}
             <span class="red-dot"></span>
@@ -18,7 +18,7 @@
 
     {% if live_stream %}
         <div class="section">
-            {{ profile.first_name}} is live now at
+            {{ profile.user.first_name}} is live now at
             <a class="live-link" href="{{ live_stream.link }}">{{ live_stream.link }}</a>.
         </div>
     {% endif %}
