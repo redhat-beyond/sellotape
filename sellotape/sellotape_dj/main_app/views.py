@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Stream, Profile
 
 
-def index(request):
-    return render(request, 'sellotape/index.html')
+def landing(request):
+    return render(request, 'landing.html')
 
 
 def user(request, username):
