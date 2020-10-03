@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'landing_logged_in.css' %}">
+{% endblock %}
+
+{% block content %}
+{% for stream in streams %}
+<p>aa</p>
+{% endfor %}
+
+<main role="main" class="container-fluid main text-center text-white main">
+    <div class="row pt-3 overflow-auto">
+        <div class="col-5">
+            <h2 class="landing-title btn-secondary rounded-sm text-white">
+                <span style="font-size: 2rem;color:white">
+                  <i class="fas fa-stream"></i>
+                </span>
+                My Live Streams
+            </h2>
+            <br/>
+            {% if not logged_in_live %}
+            <div class="card">
+                <div class="card-body bg-dark">
+                    No streams scheduled
+                </div>
+            </div>
+            {% else %}
+            <table class="table table-sm table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Live for</th>
+                    <th scope="col">Ends in</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for stream in logged_in_live %}
+                <tr>
+                    <td>
+                        <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
+                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                            {{stream.title}}
+                        </a>
+                    </td>
+                    <td>{{stream.airs_on|timesince}}</td>
+                    <td>{{stream.ends_on|timeuntil}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        <div class="col">
+            <h2 class="landing-title btn-secondary rounded-sm text-white">
+                <span style="font-size: 2rem;color:white">
+                  <i class="fas fa-stream"></i>
+                </span>
+                Live (Following)
+            </h2>
+            <br/>
+            {% if not live_streams %}
+            <div class="card">
+                <div class="card-body bg-dark">
+                    No streams scheduled
+                </div>
+            </div>
+            {% else %}
+            <table class="table  table-striped table-sm table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Live for</th>
+                    <th scope="col">Ends in</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for stream in live_streams %}
+                <tr>
+                    <td class="text-left px-4">
+                        <a href="/{{stream.author.user.username}}" class="text-white">
+                            <img src="{{stream.author.avatar.url}}" class="rounded avatar img-thumbnail" />
+                            {{stream.author.user.username|truncatechars:9}}{% if stream.author.user.username|length > 9 %}..{% endif %}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
+                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                            {{stream.title}}
+                        </a>
+                    </td>
+                    <td>{{stream.airs_on|timesince}}</td>
+                    <td>{{stream.ends_on|timeuntil}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row pt-3 overflow-auto">
+        <div class="col-5">
+            <h2 class="landing-title btn-secondary rounded-sm text-white">
+                <span style="font-size: 2rem;color:white">
+                  <i class="fas fa-stream"></i>
+                </span>
+                My Future Streams
+            </h2>
+            <br/>
+            {% if not logged_in_future %}
+            <div class="card">
+                <div class="card-body bg-dark">
+                    No streams scheduled
+                </div>
+            </div>
+            {% else %}
+
+            <table class="table table-sm table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Starts in</th>
+                    <th scope="col">Duration</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for stream in logged_in_future %}
+                <tr>
+                    <td>
+                        <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
+                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                            {{stream.title}}
+                        </a>
+                    </td>
+                    <td>{{stream.airs_on|timeuntil}}</td>
+                    <td>{{stream.ends_on|timeuntil:stream.airs_on}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        <div class="col">
+            <h3 class="landing-title btn-secondary rounded-sm text-white">
+                <span style="font-size: 2rem;color:white">
+                  <i class="fas fa-stream"></i>
+                </span>
+                Future Streams (Following)
+            </h3>
+            <br/>
+            {% if not future_streams %}
+            <div class="card">
+                <div class="card-body bg-dark">
+                    No streams scheduled
+                </div>
+            </div>
+            {% else %}
+            <table class="table  table-striped table-sm table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Starts in</th>
+                    <th scope="col">Duration</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for stream in future_streams %}
+                <tr>
+                    <td class="text-left px-4">
+                        <a href="/{{stream.author.user.username}}" class="text-white">
+                            <img src="{{stream.author.avatar.url}}" class="rounded avatar img-thumbnail" />
+                            {{stream.author.user.username|truncatechars:9}}{% if stream.author.user.username|length > 9 %}..{% endif %}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
+                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                            {{stream.title}}
+                        </a>
+                    </td>
+                    <td>{{stream.airs_on|timeuntil}}</td>
+                    <td>{{stream.ends_on|timeuntil:stream.airs_on}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}
