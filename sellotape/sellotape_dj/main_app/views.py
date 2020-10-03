@@ -1,9 +1,38 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from .models import Stream, Profile
+from .models import Stream, Profile, UserFollower
+
+
+def landing_logged_on(request):
+    # Gather my future&live streams
+    logged_in_profile = get_object_or_404(Profile, user__username=request.user.username)
+    logged_in_streams = Stream.objects.filter(author=logged_in_profile)
+    logged_in_streams = logged_in_streams.filter(ends_on__gte=timezone.now())
+
+    logged_in_live = logged_in_streams.filter(airs_on__lt=timezone.now())
+    logged_in_future = logged_in_streams.filter(airs_on__gte=timezone.now())
+
+    # Gather user's who the logged in user follows future&live streams
+    following = UserFollower.objects.filter(user=logged_in_profile)
+    following = [following_profile.follows for following_profile in following]
+    streams = Stream.objects.filter(author__in=following)
+    streams = streams.filter(ends_on__gte=timezone.now())
+
+    live_streams = streams.filter(airs_on__lt=timezone.now())
+    future_streams = streams.filter(airs_on__gte=timezone.now())
+
+    context = {
+        'logged_in_live': logged_in_live,
+        'logged_in_future': logged_in_future,
+        'live_streams': live_streams,
+        'future_streams': future_streams,
+    }
+    return render(request, 'landing_logged_in.html', context)
 
 
 def landing(request):
+    if request.user.is_authenticated:
+        return landing_logged_on(request)
     return render(request, 'landing.html')
 
 
