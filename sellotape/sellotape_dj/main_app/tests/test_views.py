@@ -44,7 +44,7 @@ class UserViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['future_streams'], [])
         self.assertQuerysetEqual(response.context['previous_streams'], [])
-        self.assertTemplateUsed(response, 'sellotape/user.html')
+        self.assertTemplateUsed(response, 'user.html')
 
     def test_finds_live_stream(self):
         """
@@ -86,14 +86,14 @@ class UserViewTests(TestCase):
             {
                 'author': user,
                 'airs_on': now.replace(year=(now.year + 1)),
-                'ends_on': None,
+                'ends_on': now.replace(hour=(now.hour - 1)),
                 'title': 'Future Stream',
                 'added_on': now
             },
             {
                 'author': user,
                 'airs_on': now.replace(year=(now.year - 1)),
-                'ends_on': now.replace(hour=now.hour),
+                'ends_on': now.replace(hour=(now.hour - 1)),
                 'title': 'Previous Stream',
                 'added_on': now
               }
