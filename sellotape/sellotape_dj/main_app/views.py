@@ -1,6 +1,6 @@
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404
-from .models import Stream, Profile
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Stream, Profile, UserFollower
 
 
 def landing(request):
@@ -29,10 +29,54 @@ def user(request, username):
     if live_stream in previous_streams:
         previous_streams.remove(live_stream)
 
+    # Check if we currently follow this user
+    following = False
+    if request.user.is_authenticated:
+        temp = UserFollower.objects.filter(user__user__username=request.user.username)
+        temp = temp.filter(follows=profile)
+        if len(temp) > 0:
+            following = True
+
     context = {
+        'following': following,
         'profile': profile,
         'future_streams': future_streams,
         'previous_streams': previous_streams,
         'live_stream': live_stream,
     }
-    return render(request, 'sellotape/user.html', context)
+    return render(request, 'user.html', context)
+
+
+def unfollow(request, username):
+    if not request.user.is_authenticated:
+        return redirect('main_app:user', username=username)
+    to_unfollow = username
+    to_unfollow_profile = get_object_or_404(Profile, user__username=to_unfollow)
+
+    follower = request.user.username
+    follower_profile = get_object_or_404(Profile, user__username=follower)
+
+    following = UserFollower.objects.filter(user=follower_profile, follows=to_unfollow_profile)
+    if len(following) != 1:
+        return redirect('main_app:user', username=username)
+
+    following.delete()
+    return redirect('main_app:user', username=username)
+
+
+def follow(request, username):
+    if not request.user.is_authenticated:
+        return redirect('main_app:user', username=username)
+    to_follow = username
+    to_follow_profile = get_object_or_404(Profile, user__username=to_follow)
+
+    follower = request.user.username
+    follower_profile = get_object_or_404(Profile, user__username=follower)
+
+    following = UserFollower.objects.filter(user=follower_profile, follows=to_follow_profile)
+    if len(following) > 0:
+        return redirect('main_app:user', username=username)
+
+    user_follow = UserFollower(user=follower_profile, follows=to_follow_profile)
+    user_follow.save()
+    return redirect('main_app:user', username=username)

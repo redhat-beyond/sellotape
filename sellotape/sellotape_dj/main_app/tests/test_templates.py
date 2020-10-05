@@ -15,15 +15,17 @@ class UserTemplateTests(TestCase):
             }
         }
 
-        html = render_to_string('sellotape/user.html', {'profile': profile})
-        self.assertTrue('<h2>Darth Vader</h2>' in html)
+        html = render_to_string('user.html', {'profile': profile})
+        self.assertTrue("darth-va…'s Streams" in html)
 
     def test_shows_no_streams_message(self):
         """It should display an appropriate message when no streams are available."""
         user = {'username': 'darth-vader'}
         profile = {'user': user}
-        html = render_to_string('sellotape/user.html', {'profile': profile})
-        self.assertTrue('<h3>No streams are available.</h3>' in html)
+        html = render_to_string('user.html', {'profile': profile})
+        self.assertTrue('No Live Stream' in html)
+        self.assertTrue('No past streams!' in html)
+        self.assertTrue('No future streams scheduled yet!' in html)
 
     def test_shows_live_stream(self):
         """It should display the live link to a stream happening at the moment."""
@@ -46,9 +48,9 @@ class UserTemplateTests(TestCase):
             'live_stream': live_stream
         }
 
-        html = render_to_string('sellotape/user.html', context)
-        self.assertTrue('Darth is live now at' in html)
-        self.assertTrue('linktomystream.com</a>' in html)
+        html = render_to_string('user.html', context)
+        self.assertTrue('<h5 class="mb-1">Live Stream</h5>' in html)
+        self.assertTrue('<a href="linktomystream.com"' in html)
 
     def test_shows_future_streams(self):
         """It should display future and previous streams."""
@@ -60,26 +62,26 @@ class UserTemplateTests(TestCase):
         ]
 
         context = {'future_streams': future_streams}
-        html = render_to_string('sellotape/user.html', context)
+        html = render_to_string('user.html', context)
 
-        self.assertTrue('<h3>Future Streams</h3>' in html)
-        self.assertTrue('<h4>Stream 1</h4>' in html)
-        self.assertTrue('<h4>Stream 2</h4>' in html)
-        self.assertTrue('Airs on Jan. 1, 2025' in html)
+        self.assertTrue('<h1 style="display-4">Future streams</h1>' in html)
+        self.assertTrue('<h5 class="mb-1">Stream 1</h5>' in html)
+        self.assertTrue('<h5 class="mb-1">Stream 2</h5>' in html)
+        self.assertTrue('<small>Airs on Jan. 1, 2025</small>' in html)
 
     def test_shows_previous_streams(self):
         """It should display future and previous streams."""
         date = timezone.datetime(2018, 1, 1)
 
-        future_streams = [
+        previous_streams = [
             {'title': 'Stream 1', 'airs_on': date},
             {'title': 'Stream 2', 'airs_on': date}
         ]
 
-        context = {'future_streams': future_streams}
-        html = render_to_string('sellotape/user.html', context)
+        context = {'previous_streams': previous_streams}
+        html = render_to_string('user.html', context)
 
-        self.assertTrue('<h3>Future Streams</h3>' in html)
-        self.assertTrue('<h4>Stream 1</h4>' in html)
-        self.assertTrue('<h4>Stream 2</h4>' in html)
-        self.assertTrue('Airs on Jan. 1, 2018' in html)
+        self.assertTrue('<h1 style="display-4">Past streams</h1>' in html)
+        self.assertTrue('<h5 class="mb-1">Stream 1</h5>' in html)
+        self.assertTrue('<h5 class="mb-1">Stream 2</h5>' in html)
+        self.assertTrue('<small>Aired on Jan. 1, 2018</small>' in html)
