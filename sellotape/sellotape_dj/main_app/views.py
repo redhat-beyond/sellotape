@@ -29,7 +29,7 @@ def landing_logged_on(request):
     }
     return render(request, 'landing_logged_in.html', context)
 
-  
+
 def landing(request):
     if request.user.is_authenticated:
         return landing_logged_on(request)
