@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.header a {
+    color: black
+}
+
+h2 {
+    margin-right: 20px;
+    text-decoration: underline;
+}
+
+.red-dot {
+    height: 12px;
+    width: 12px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.live-link {
+    color: #2d2d2d;
+    text-decoration: none;
+}
+
+.section {
+    margin-bottom: 50px;
+}
+
+.streams {
+    margin: 0;
+    padding: 0;
+}
+
+.streams li {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    transition: box-shadow .2s ease-in-out;
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid #e8f2ff;
+    background-color: #e8f2ff;
+    box-shadow: 0 2px 6px 1px #e1e5e8;
+    margin-bottom: 14px;
+}

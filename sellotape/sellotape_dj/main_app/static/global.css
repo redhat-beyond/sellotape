@@ -1,0 +1,17 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+body {
+  padding-top: 3rem;
+  padding-bottom: 0rem;
+  background: url('https://images.unsplash.com/photo-1519677584237-752f8853252e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&dl=manuel-sardo-dZOFaMG-0Q0-unsplash.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+/* Footer */
+footer {
+  background-color:#343a40;
+  opacity:1;
+}

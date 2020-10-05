@@ -34,19 +34,19 @@ It is not necessary though for viewing schedueld streams of other users, as we e
 #### Backend:
 
 * **MVC design pattern with Django framework**.
-* Database: _PostgreSQL_.
+* Database: _SQLite_.
     Note: the following db structure may change upon needs.
-    * `users` table:
-        * `user_id`, `first_name`, `last_name`, `username`, `email`, `password`, `city`, `country`, `avatar`
+    * `Profile` table:
+        * `user_id`, `first_name`, `last_name`, `username`, `email`, `password`, `city`, `country`, `avatar`, `youtube_link`, `twitch_link`
         * Primary key: `user_id`
-    * `user_followers` table:
+    * `UserFollowers` table:
         * `user_follower_id`, `user_id`, `follower_id`
         * Primary key: `user_follower_id`
         * `user_id` and `follower_id` are foreign keys referencing `user_id` in `users` table.
-    * `streams` table:
-        * `stream_id`, `creator_id`, `date`, `link` to stream
-        * Primary key: `stream_id`
-        * `creator_id` has a foreign key referencing `user_id` in `users` table.
+    * `Streams` table:
+        * `id`, `author`, `link`, `airs_on`, `ends_on`, `added_on`
+        * Primary key: `id`
+        * `author` has a foreign key referencing `user_id` in `users` table.
 
 #### Frontend:
 * DTL (Django template langauge)
@@ -68,3 +68,12 @@ Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
 2. Clone this repository.
 3. Open a shell prompt, and switch to the location of the repository.
 4. Run 'vagrant up'. Once it finished, you're all set!
+
+## Setting up superuser
+A superuser is automatically created in the provisioning scripts, you can change the default username and password in there BEFORE running `vagrant up`.
+The defaults are currently 'admin', '123456'.
+
+# Shortcuts/Aliases
+For you convenience, we've set up a few aliases to ease up Start/Stop/Restart actions of the project.
+Usage: `start_sellotape`, `stop_sellotape`, `restart_sellotape` to start/stop/restart sellotape.
+Upon project creation, `start_sellotape` is run automatically.

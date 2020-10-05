@@ -1,0 +1,95 @@
+{% extends 'sellotape/base.html' %}
+{% load static %}
+{% block content %}
+	<head>
+		<meta charset = "utf-8"/>
+		<title>Chat Room</title>
+	</head>
+
+	<body>
+		<textarea id = "chat-log" cols = "100" rows = "40"></textarea><br>
+		<input id = "chat-message-input" type = "text" placeholder="Write your message..." size = "100"><br>
+		<input id = "chat-message-submit" type = "button" value = "Send">
+		<script src = "{% static 'reconnecting-websocket.js' %}"></script>
+		{{ room_name|json_script:"room-name" }}
+
+		<script>
+			const roomName = JSON.parse(document.getElementById('room-name').textContent);
+			
+			const username = {{ username }};
+
+			const chatSocket = new ReconnectingWebSocket(
+				'ws://' + window.location.host + 
+				'/ws/chat/' + roomName + '/');
+			
+			chatSocket.onopen = function(e) {
+				fetchMessages();
+			}
+
+			chatSocket.onmessage = function(e) {
+				var data = JSON.parse(e.data);
+				if (data['command'] === 'messages') {
+					for (let i=0; i<data['messages'].length; i++){
+						createMessage(data['messages'][i]);
+					}
+				} else if (data['command'] === 'new_message'){
+					createMessage(data['message']);
+				}
+			};
+
+			chatSocket.onclose = function(e) {
+				console.error('Chat socket closed unexpectedly');
+			};
+
+			document.querySelector('#chat-message-input').focus();
+			document.querySelector('#chat-message-input').onkeyup = function(e) {
+				if (e.keyCode === 13) { // enter, return
+					document.querySelector('#chat-message-submit').click();
+				}
+			};
+
+			document.querySelector('#chat-message-submit').onclick = function(e) {
+				const messageInputDom = document.getElementById('chat-message-input');
+				const message = messageInputDom.value;
+				chatSocket.send(JSON.stringify({
+					'command': 'new_message',
+					'message': message,
+					'from': username
+				}));
+				messageInputDom.value = ''; 
+			};
+
+			function fetchMessages(){
+				chatSocket.send(JSON.stringify({'command': 'fetch_messages'}));
+			}
+
+			function timeStamp(timestamp) {
+				let prefix ='';
+				const timeDiff = Math.round((new Date().getTime() - new Date(timestamp).getTime())/60000) ;
+				if (timeDiff < 60 && timeDiff > 0 ) {
+					prefix = timeDiff + ' minutes ago';
+				} else if (timeDiff < 24*60 && timeDiff > 60) {
+					prefix = parseInt(timeDiff/60) + ' hours ago';
+				} else if (timeDiff < 31*24*60 && timeDiff > 24*60) {
+					prefix = parseInt(timeDiff/(60*24))+ ' days ago';
+				} else {
+					prefix = new Date(timestamp); 
+				}
+				return prefix
+			}
+
+			function createMessage(data) {
+				document.querySelector('#chat-log').value += (
+					data['author'] + 
+					': ' + 
+					data.content + 
+					'\n' + 
+					timeStamp(data.timestamp) + 
+					'\n' +
+					'\n'
+					);
+			}
+		</script>
+
+	</body>
+{% endblock %}
