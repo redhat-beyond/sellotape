@@ -7,8 +7,8 @@ main {
     margin-bottom: 0rem;
 }
 
-h1.main-title {
+h1.main-title, h2.main-title, h3.main-title {
     display:inline-block;
-    width:400px;
+    width:500px;
     background:rgba(255,255,255,0.4);
 }

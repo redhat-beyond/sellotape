@@ -8,12 +8,23 @@
 {% block content %}
 <main role="main" class="container-fluid main text-center main">
 
-    <h1 class="main-title display-4 btn-secondary rounded-sm text-white">
+    <h3 class="main-title btn-secondary rounded-sm text-white mt-3 pb-1 align-middle">
         <span style="font-size: 2rem;color:white">
           <i class="fas fa-stream"></i>
         </span>
-        Streams
-    </h1> <br />
+        {{profile.user.username|truncatechars:9}}'s Streams
+        {% if user.is_authenticated %}
+            {% if not following %}
+            <a href="{% url 'main_app:follow' profile.user.username %}">
+                <span class="badge badge-primary badge-pill ">+ Follow</span>
+            </a>
+            {% else %}
+            <a href="{% url 'main_app:unfollow' profile.user.username %}">
+                <span class="badge badge-primary badge-pill ">- Unfollow</span>
+            </a>
+            {% endif %}
+        {% endif %}
+    </h3> <br />
     <div class="btn-group block mb-2" role="group" aria-label="Stream buttons">
         <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#previousStreams" role="button" aria-expanded="false" aria-controls="previousStreams">
             Past Streams <span class="badge badge-light">{{ previous_streams|length }}</span>
@@ -42,7 +53,7 @@
                     {% for stream in previous_streams %}
                       <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">{{ stream.title }} </h5>
+                          <h5 class="mb-1">{{ stream.title }}</h5>
                           <small>Aired on {{ stream.airs_on|date }}</small>
                         </div>
                         <p class="mb-1"></p>
@@ -66,7 +77,7 @@
                     {% for stream in future_streams %}
                       <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">{{ stream.title }} </h5>
+                          <h5 class="mb-1">{{ stream.title }}</h5>
                           <small>Airs on {{ stream.airs_on|date }}</small>
                         </div>
                         <p class="mb-1"></p>
@@ -87,7 +98,7 @@
                     {% else %}
                       <a href="{{ live_stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">{{ live_stream.title }} </h5>
+                          <h5 class="mb-1">{{ live_stream.title }}</h5>
                           <small>Airs on {{ live_stream.airs_on|date }}</small>
                         </div>
                         <p class="mb-1"></p>
