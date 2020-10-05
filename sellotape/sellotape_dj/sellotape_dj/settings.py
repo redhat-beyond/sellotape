@@ -80,9 +80,8 @@ ASGI_APPLICATION = 'sellotape_dj.routing.application'
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
-   }
+    }
 }
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
