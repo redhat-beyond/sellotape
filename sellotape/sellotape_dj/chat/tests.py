@@ -13,8 +13,8 @@ class ChatTests(ChannelsLiveServerTestCase):
         super().setUpClass()
         try:
             # NOTE: Requires "chromedriver" binary to be installed in $PATH
-            cls.driver = webdriver.Chrome("/Users/tarelgastonmadar/Downloads/chromedriver")
-        except:
+            cls.driver = webdriver.Chrome()
+        except Exception:
             super().tearDownClass()
             raise
 
