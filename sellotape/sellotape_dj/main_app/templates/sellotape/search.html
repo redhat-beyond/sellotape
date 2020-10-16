@@ -1,0 +1,35 @@
+{% extends "user.html" %}
+{% load class_name %}
+{% block content %}
+
+<div class='row title-row my-5'>
+    <div class='col-12 py-0'>
+        <h1 class='my-0 py-0'>&ensp;{{ count }} results for <b>{{ query }}</b>:</h1>
+    </div>
+</div>
+        
+        
+{% for object in qs %}
+    {% with object|class_name as klass %}
+      {% if klass == 'Stream' %}
+           <div class='row'>
+             <div class='col-12'>
+                <h4 class='my-0 py-0'>&emsp;<i class="fas fa-microphone-alt"></i> Stream: <a href='{{ object.link }}'>{{ object.title }}</a></h4>
+            </div>
+          </div>
+        
+
+      {% elif klass == 'Profile' %}
+           <div class='row'>
+             <div class='col-12'>
+                <h4 class='my-0 py-0'>&emsp;<i class="fas fa-user"></i> Profile: <a href='{{ object.get_absolute_url }}'>{{ object.user.username }}</a></h4>
+            </div>
+           </div>
+        {% endif %}
+        
+    {% endwith %}
+    
+{% empty %}
+{% endfor %}
+
+{% endblock content %}

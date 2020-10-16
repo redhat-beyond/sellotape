@@ -14,6 +14,9 @@
           </li>
         </ul>
         {% if user.is_authenticated %}
+        <form class="form-inline mr-auto" method='GET' class='' action='/search'>
+          <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search" aria-label="Search" value="" autofocus="autofocus">
+        </form>
         <div class="bg-dark text-white">
            Welcome {{user.username}} &nbsp;
             <a href="{% url 'logout' %}">
