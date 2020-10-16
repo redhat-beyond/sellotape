@@ -3,7 +3,6 @@ import tempfile
 import os.path
 
 from django.core import files
-from django.http import HttpResponseNotFound, HttpResponseBadRequest
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Stream, Profile, UserFollower
