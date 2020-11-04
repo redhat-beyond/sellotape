@@ -41,7 +41,7 @@ def search(request):
         stream_results,
         profile_results
         )
-    
+
     # Checking if there were found results, if we did find, sort them.
     if queryset_chain is not None:
         if stream_results is not None or profile_results is not None:
@@ -49,7 +49,7 @@ def search(request):
 
     # Sums up both results of streams and profiles.
     count = length_streams + length_profiles
-    
+
     # Creating the context relevant for rendering the HTML results file.
     context = {
         'qs': qs,
