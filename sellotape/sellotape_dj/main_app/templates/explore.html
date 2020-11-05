@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'user.css' %}">
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container-fluid main text-center main">
+
+    <div class="btn-group block mb-2" role="group" aria-label="Stream buttons">
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#topRated" role="button" aria-expanded="false" aria-controls="topRated">
+            Top Rated Users <span class="badge badge-light">{{ top_rated|length }}</span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#educationStreams" role="button" aria-expanded="false" aria-controls="educationStreams">
+            Education <span class="badge badge-light">{{ education_streams|length }}</span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#gamingStreams" role="button" aria-expanded="false" aria-controls="gamingStreams">
+            Gaming <span class="badge badge-light">{{ gaming_streams|length }}</span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#musicStreams" role="button" aria-expanded="false" aria-controls="musicStreams">
+            Music <span class="badge badge-light">{{ genre_streams['music']|length }}</span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#blogStreams" role="button" aria-expanded="false" aria-controls="blogStreams">
+            Blogs <span class="badge badge-light">{{ genre_streams['blog']|length }}</span>
+        </button>
+    </div>
+    <div id="streams">
+        <div id="educationStreams" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not education_streams %}
+                        No Education streams!
+                    {% else %}
+                        <h1 style="display-4">Education streams</h1>
+                    {% endif %}
+                    {% for stream in education_streams %}
+                      <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ stream.title }}</h5>
+                          <small>Aired on {{ stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gamingStreams" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not gaming_streams %}
+                        No Gaming streams!
+                    {% else %}
+                        <h1 style="display-4">Gaming streams</h1>
+                    {% endif %}
+                    {% for stream in gaming_streams %}
+                      <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ stream.title }}</h5>
+                          <small>Aired on {{ stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="musicStreams" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not music_streams %}
+                        No Music streams!
+                    {% else %}
+                        <h1 style="display-4">Music streams</h1>
+                    {% endif %}
+                    {% for stream in music_streams %}
+                      <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ stream.title }}</h5>
+                          <small>Aired on {{ stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="blogStreams" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not blog_streams %}
+                        No Blog streams!
+                    {% else %}
+                        <h1 style="display-4">Blog streams</h1>
+                    {% endif %}
+                    {% for stream in blog_streams %}
+                      <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ stream.title }}</h5>
+                          <small>Aired on {{ stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="topRated" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not top_rated %}
+                        No Users!
+                    {% else %}
+                        <h1 style="display-4">Top Rated Users</h1>
+                    {% endif %}
+                    {% for top in top_rated %}
+                      <td class="text-left px-4">
+                        <a href="/{{top.user.username}}" class="text-white">
+                            <img src="{{top.avatar.url}}" class="rounded avatar img-thumbnail" />
+                            {{top.user.username|truncatechars:9}}{% if top.user.username|length > 9 %}..{% endif %}
+                        </a>
+                      </td>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</main>
+{% endblock %}
