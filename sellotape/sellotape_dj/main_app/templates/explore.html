@@ -19,10 +19,10 @@
             Gaming <span class="badge badge-light">{{ gaming_streams|length }}</span>
         </button>
         <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#musicStreams" role="button" aria-expanded="false" aria-controls="musicStreams">
-            Music <span class="badge badge-light">{{ genre_streams['music']|length }}</span>
+            Music <span class="badge badge-light">{{ music_streams|length }}</span>
         </button>
         <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#blogStreams" role="button" aria-expanded="false" aria-controls="blogStreams">
-            Blogs <span class="badge badge-light">{{ genre_streams['blog']|length }}</span>
+            Blogs <span class="badge badge-light">{{ blog_streams|length }}</span>
         </button>
     </div>
     <div id="streams">
@@ -143,7 +143,6 @@
                 </div>
             </div>
         </div>
-
-
+        
 </main>
 {% endblock %}
