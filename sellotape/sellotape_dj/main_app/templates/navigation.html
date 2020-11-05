@@ -11,7 +11,10 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Explore <span class="badge badge-light">4</a>
+              {% if user.is_authenticated %}
           </li>
+            <a class="nav-link" href="/add-stream">Add Stream</a>
+            {% endif %}
         </ul>
         {% if user.is_authenticated %}
         <div class="bg-dark text-white">

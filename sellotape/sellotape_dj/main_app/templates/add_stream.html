@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'user.css' %}">
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container-fluid main text-center main">
+    <h1 style="display-4">Add Stream</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ stream_form.as_p }}
+        <input type="submit" value="Save new stream">
+    </form>
+</main>
+{% endblock %}
