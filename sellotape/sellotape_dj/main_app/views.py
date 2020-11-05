@@ -127,4 +127,3 @@ def add_stream(request):
             form = StreamForm()
         return render(request, 'add_stream.html', {'stream_form': form})
     return render(request, 'landing.html')
-
