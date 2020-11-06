@@ -8,12 +8,13 @@
 {% block content %}
 <main role="main" class="container-fluid main text-center main">
 
-    <h3 class="main-title btn-secondary rounded-sm text-white mt-3 pb-1 align-middle">
+    <h3 class="main-title btn-secondary rounded-sm text-dark mt-3 pb-1 align-middle"
+        style="margin: 80px;">
         <span style="font-size: 2rem;color:white">
           <i class="fas fa-stream"></i>
         </span>
-        {{profile.user.username|truncatechars:9}}'s Streams
-        {% if user.is_authenticated %}
+        {{profile.user.first_name}} {{profile.user.last_name}}
+        {% if user.is_authenticated and user.username != profile.user.username %}
             {% if not following %}
             <a href="{% url 'main_app:follow' profile.user.username %}">
                 <span class="badge badge-primary badge-pill ">+ Follow</span>

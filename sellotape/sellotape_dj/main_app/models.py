@@ -22,6 +22,9 @@ class Profile(models.Model):
         default=City.tel_aviv,
     )
 
+    def __str__(self):
+        return '{} {}'.format(self.user.first_name, self.user.last_name)
+
 
 class UserFollower(models.Model):
     user = models.ForeignKey(Profile, related_name='users', on_delete=models.CASCADE)

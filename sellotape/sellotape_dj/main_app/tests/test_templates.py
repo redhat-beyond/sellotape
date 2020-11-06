@@ -16,7 +16,7 @@ class UserTemplateTests(TestCase):
         }
 
         html = render_to_string('user.html', {'profile': profile})
-        self.assertTrue("darth-va…'s Streams" in html)
+        self.assertTrue("Darth Vader" in html)
 
     def test_shows_no_streams_message(self):
         """It should display an appropriate message when no streams are available."""
