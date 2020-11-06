@@ -1,6 +1,12 @@
+import requests
+import tempfile
+import os.path
+
+from django.core import files
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Stream, Profile, UserFollower
+from social_django.models import UserSocialAuth
 
 
 def landing_logged_on(request):
@@ -109,3 +115,60 @@ def follow(request, username):
     user_follow = UserFollower(user=follower_profile, follows=to_follow_profile)
     user_follow.save()
     return redirect('main_app:user', username=username)
+
+
+def complete_login(request):
+    if request.user.is_anonymous:
+        return redirect('/')
+
+    profile = Profile.objects.filter(user=request.user)
+    if len(profile) > 0:
+        return redirect('/')
+
+    social_auths = UserSocialAuth.objects.filter(user=request.user)
+    if len(social_auths) <= 0:
+        return redirect('/')
+
+    picture = social_auths[0].extra_data["picture"]
+
+    # Facebook pictures are further wrapped in the following way
+    if type(picture) is dict:
+        picture = picture["data"]["url"]
+
+    # Steam the image from the url
+    pic_req = requests.get(picture, stream=True)
+
+    # Was the request OK?
+    if pic_req.status_code != requests.codes.ok:
+        # Nope, error handling, skip file etc etc etc
+        picture = None
+    else:
+        # Create a temporary file
+        lf = tempfile.NamedTemporaryFile()
+
+        # Get the filename from the url, used for saving later
+        file_name = os.path.basename(lf.name)
+
+        # Read the streamed image in sections
+        for block in pic_req.iter_content(1024 * 8):
+
+            # If no more file then stop
+            if not block:
+                break
+
+            # Write image block to temporary file
+            lf.write(block)
+
+    city = Profile.City.tel_aviv
+
+    new_profile = Profile()
+    new_profile.user = request.user
+    new_profile.city = city
+    if picture is not None:
+        # Save the temporary image to the model#
+        # This saves the model so be sure that is it valid
+        new_profile.avatar.save(file_name, files.File(lf))
+    new_profile.youtube_link = ''
+    new_profile.twitch_link = ''
+    new_profile.save()
+    return redirect('/')

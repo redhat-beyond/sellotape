@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from json import load
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,11 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'main_app.apps.MainAppConfig',
     'chat',
     'channels',
     'search.apps.SearchConfig',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +78,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -134,5 +144,46 @@ MEDIA_ROOT = 'media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_REDIRECT_URL = '/complete-login/'
 LOGOUT_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '~'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '~'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
+SOCIAL_AUTH_GOOGLE_OAUTH2_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email, picture.type(large)'
+}
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = [
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture')
+]
+
+SOCIAL_AUTH_FACEBOOK_KEY = "~"  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = "~"  # App Secret
+SOCIAL_AUTH_FACEBOOK_SCOPE = SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = SOCIAL_AUTH_GOOGLE_OAUTH2_PROFILE_EXTRA_PARAMS
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA
+
+SELLOTAPE_SETTINGS_PATH = Path(BASE_DIR).joinpath("settings.json")
+if SELLOTAPE_SETTINGS_PATH.exists():
+    with open(SELLOTAPE_SETTINGS_PATH) as fp:
+        settings = load(fp)
+        SOCIAL_AUTH_FACEBOOK_KEY = settings["facebook"]["key"]
+        SOCIAL_AUTH_FACEBOOK_SECRET = settings["facebook"]["secret"]
+        SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = settings["google"]["key"]
+        SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = settings["google"]["secret"]
