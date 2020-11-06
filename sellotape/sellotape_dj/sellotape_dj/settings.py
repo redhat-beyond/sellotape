@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'main_app.apps.MainAppConfig',
     'chat',
     'channels',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
