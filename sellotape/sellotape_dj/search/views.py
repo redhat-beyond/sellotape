@@ -13,6 +13,7 @@ def uniq_chain(*args, **kwargs):
         seen.add(x)
         yield x
 
+
 def search(request):
     # Getting the query string for the searching.
     query = request.GET.get('search', None)
