@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h3 class="p-4 mt-3">
+            Live Trending Streams
+            <small class="text-muted">Extracted from Twitch</small>
+        </h3>
+        <ul class="list-unstyled">
+            {% for stream in streams %}
+                <li>
+                    <div class="card p-3 m-4">
+                        <div class="card-body">
+                            {% if stream.use_twitch_logo %}
+                                <img class="rounded p-1 float-right" src="{% static 'images/twitch.jpg' %}" width="280px" height="156px">
+                            {% else %}
+                                <img class="rounded p-1 float-right" src={{ stream.image }} width="280px" height="156px">
+                            {% endif %}
+
+                            <h6 class="card-title">{{ stream.title }}</h6>
+                            {{ stream.text|safe }}
+                            <a href={{ stream.url }} class="card-link">Watch now at twitch.tv</a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
