@@ -43,6 +43,7 @@
                            data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     </td>
                     <td>{{stream.airs_on|timesince}}</td>
                     <td>{{stream.ends_on|timeuntil}}</td>
@@ -90,6 +91,7 @@
                            data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     </td>
                     <td>{{stream.airs_on|timesince}}</td>
                     <td>{{stream.ends_on|timeuntil}}</td>
@@ -134,6 +136,7 @@
                            data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     </td>
                     <td>{{stream.airs_on|timeuntil}}</td>
                     <td>{{stream.ends_on|timeuntil:stream.airs_on}}</td>
@@ -181,6 +184,7 @@
                            data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     </td>
                     <td>{{stream.airs_on|timeuntil}}</td>
                     <td>{{stream.ends_on|timeuntil:stream.airs_on}}</td>
