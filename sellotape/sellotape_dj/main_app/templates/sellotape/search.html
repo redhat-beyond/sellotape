@@ -22,7 +22,7 @@
       {% elif klass == 'Profile' %}
            <div class='row'>
              <div class='col-12'>
-                <h4 class='my-0 py-0'>&emsp;<i class="fas fa-user"></i> Profile: <a href='{{ object.get_absolute_url }}'>{{ object.user.username }}</a></h4>
+                <h4 class='my-0 py-0'>&emsp;<i class="fas fa-user"></i> Profile: <a href="/{{object.user.username}}">{{ object.user.username }}</a></h4>
             </div>
            </div>
         {% endif %}
