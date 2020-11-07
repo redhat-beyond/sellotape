@@ -7,4 +7,4 @@ __pycache__/
 # Django local SQLite3 DB
 db.sqlite3
 
-./sellotape/media
+sellotape/media/

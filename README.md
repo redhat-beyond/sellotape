@@ -1,4 +1,4 @@
-# sellotape
+# Sellotape
 
 Sellotape is a modern audio podcast platform.
 It introduces an accessible way to listen to podcast and streams.
@@ -13,67 +13,27 @@ As a listener, you can follow your favorite streamers and keep up to date with t
 The platform strives to be a simple social network as users can follow and engage with each other.
 Our philosophy is that there should be no alienation between a streamer and a listener, and we engage and strive to push the interaction between them as possible.
 
-## High-level design
-* Unregister users will encounter a landing page that explains the platform and let them sign-in easily.
-Resigtration is required in order to connect your streams information and/or to stay up to date with streamers that you follow, as would be expected from a basic social network.
-It is not necessary though for viewing schedueld streams of other users, as we encourage more listeners and an easy access to different streams of registered users.
+## Spinning a Dev Environment
+Head to the [Spinning Up section](docs/DevGuidelines.md#spinning-up) in the Development Guidelines for a quick set up of the platform on your machine.
 
-* If user x _is_ registered (and logged in), then the following will be presented on the main page:
-    * (Infinite) feed of future scheduled streams of users that user x follows.
-    * When there are no more available shceduled streams to display then show previous streams of users that user x follows.
-    * Trending streams of users that user x doesn't follow
-    * Explore streams by subject/tag searching
 
-* Accessing a specific user page will show:
-    * User info and a _follow_ button
-    * _Listen live now link_ button if indeed a live stream is occurring at the moment.
-    * Display archeieve of previous streams
 
-## Technological stack 
+# Contributing
+Thank you for your interest in contributing to Sellotape :fire: There are multiple ways and places you can contribute, and we're here to help facilitate that.
 
-#### Backend:
+## Code contribution 
+If you'd like to fix bugs or add a new feature to Sellotape, make sure that you follow our [Development Guidlines](docs/DevGuidelines.md).
+Once you are done working, submit a Pull Request and assign one of the collaborators of the project. We will reviwed it as soon as possible :raised_hands:
 
-* **MVC design pattern with Django framework**.
-* Database: _SQLite_.
-    Note: the following db structure may change upon needs.
-    * `Profile` table:
-        * `user_id`, `first_name`, `last_name`, `username`, `email`, `password`, `city`, `country`, `avatar`, `youtube_link`, `twitch_link`
-        * Primary key: `user_id`
-    * `UserFollowers` table:
-        * `user_follower_id`, `user_id`, `follower_id`
-        * Primary key: `user_follower_id`
-        * `user_id` and `follower_id` are foreign keys referencing `user_id` in `users` table.
-    * `Streams` table:
-        * `id`, `author`, `link`, `airs_on`, `ends_on`, `added_on`
-        * Primary key: `id`
-        * `author` has a foreign key referencing `user_id` in `users` table.
+## Reporting an issue
+If you have found what you believe to be an issue with Sellotape's platform please do not hesitate to file an issue on the GitHub project. When filing your issue please make sure you can express the issue with a reproducible test case, and that test case should not include any external dependencies. That is to say, the test case can be executed without anything more than runnign on the existing `master` branch of Sellotape in our Vagrant configuration.
 
-#### Frontend:
-* DTL (Django template langauge)
-* HTML/Sass
+## Becoming a collaborator
+By becoming a collaborator, contributors can have even more impact on the project :family: They can help other contributors by reviewing their contributions, triage issues and take an even bigger part in shaping the project's future. Individuals identified by us as making significant and valuable contributions may be made Collaborators and given commit access to the project. Activities taken into consideration include (but are not limited to) the quality of:
+* Code commits and pull requests.
+* Documentation commits
+* Commenting on issues
+* Assistance provided to end users and novice contributors
 
-#### Environment:
-* Vagrant (specific virtual box not yet determined) for development.
-* Python packages managed by [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/).
-
-#### CI/CD:
-* GitHub Actions workflow to run lint, unit and functional tests with pylint and PyTest.
-* Static type checker using [Mypy](http://mypy-lang.org/).
-
-#### Team Members
+#### Collaborators
 Guy Itzhaki, Tarel Madar, Gal Lapid, Alon Weissfeld, Omri Rosner
-
-## Setting up a development environment using Vagrant
-1. Install VirtualBox and Vagrant.
-2. Clone this repository.
-3. Open a shell prompt, and switch to the location of the repository.
-4. Run 'vagrant up'. Once it finished, you're all set!
-
-## Setting up superuser
-A superuser is automatically created in the provisioning scripts, you can change the default username and password in there BEFORE running `vagrant up`.
-The defaults are currently 'admin', '123456'.
-
-# Shortcuts/Aliases
-For you convenience, we've set up a few aliases to ease up Start/Stop/Restart actions of the project.
-Usage: `start_sellotape`, `stop_sellotape`, `restart_sellotape` to start/stop/restart sellotape.
-Upon project creation, `start_sellotape` is run automatically.
