@@ -1,35 +1,96 @@
-{% extends "user.html" %}
-{% load class_name %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'user.css' %}">
+{% endblock %}
+
 {% block content %}
+<main role="main" class="container-fluid main text-center main">
 
-<div class='row title-row my-5'>
-    <div class='col-12 py-0'>
-        <h1 class='my-0 py-0'>&ensp;{{ count }} results for <b>{{ query }}</b>:</h1>
+    <br/>
+    <h3 class="main-title btn-secondary rounded-sm text-white mt-3 pb-1 align-middle">
+        <span style="font-size: 2rem;color:white">
+          <i class="fas fa-stream"></i>
+        </span>
+        Results
+    </h3>
+    <br/>
+
+    <div class="btn-group block mb-2" role="group" aria-label="Stream buttons">
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#streams" role="button" aria-expanded="false" aria-controls="streams">
+            Streams <span class="badge badge-light">{{ stream_results|length }}</span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
+            Users <span class="badge badge-light">{{ profile_results|length }}</span>
+        </button>
     </div>
-</div>
-        
-        
-{% for object in qs %}
-    {% with object|class_name as klass %}
-      {% if klass == 'Stream' %}
-           <div class='row'>
-             <div class='col-12'>
-                <h4 class='my-0 py-0'>&emsp;<i class="fas fa-microphone-alt"></i> Stream: <a href='{{ object.link }}'>{{ object.title }}</a></h4>
-            </div>
-          </div>
-        
 
-      {% elif klass == 'Profile' %}
-           <div class='row'>
-             <div class='col-12'>
-                <h4 class='my-0 py-0'>&emsp;<i class="fas fa-user"></i> Profile: <a href="/{{object.user.username}}">{{ object.user.username }}</a></h4>
+    <div id="streams">
+        <div id="streams" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not stream_results %}
+                        No stream results!
+                    {% else %}
+                        <h1 style="display-4">Stream Results</h1>
+                    {% endif %}
+                    {% for stream in stream_results %}
+                      <a href="{{ stream.link }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ stream.title }}</h5>
+                          <small>Aired on {{ stream.airs_on|date }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>(Click here to view the stream)</small>
+                      </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
+                    {% endfor %}
+                    </div>
+                </div>
             </div>
-           </div>
-        {% endif %}
-        
-    {% endwith %}
-    
-{% empty %}
-{% endfor %}
+        </div>
 
-{% endblock content %}
+
+        <div id="users" class="collapse row align-items-top justify-content-md-center mb-2" data-parent="#streams">
+            <div class="col-8">
+                <div class="card h-auto p-3 overflow-auto">
+                    <div class="list-group">
+                    {% if not profile_results %}
+                        No Users!
+                    {% else %}
+                        <h1 style="display-4">User Results</h1>
+                    <table class="table  table-striped table-sm table-hover table-dark">
+                    <thead>
+                    <tr style="text-align:center">
+                        <th scope="col">User</th>
+                        {% if user.is_authenticated %}
+                        <th scope="col">Talk with him</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for profile in profile_results %}
+                        <td class="text-center px-4">
+                            <a href="{% url 'main_app:user' profile.user.username %}" class="text-white">
+                                <img src="{{profile.avatar.url}}" class="rounded avatar img-thumbnail" width="50" height="60"/>
+                                {{profile.user.username|truncatechars:9}}{% if profile.user.username|length > 9 %}..{% endif %}
+                            </a>
+                        </td>
+                        {% if user.is_authenticated and user.username != profile.user.username %}
+                        <td class="text-center"><li><a href="{% url 'chat:room' profile.user.username %}">Talk with {{ profile.user.username }}!</a></li> </td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</main>
+{% endblock %}
