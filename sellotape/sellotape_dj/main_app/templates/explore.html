@@ -8,15 +8,24 @@
 {% block content %}
 <main role="main" class="container-fluid main text-center main">
 
+    <br/>
+    <h3 class="main-title btn-secondary rounded-sm text-white mt-3 pb-1 align-middle">
+        <span style="font-size: 2rem;color:white">
+          <i class="fas fa-stream"></i>
+        </span>
+        Explore Page
+    </h3>
+    <br/>
+
     <div class="btn-group block mb-2" role="group" aria-label="Stream buttons">
-        <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#topRated" role="button" aria-expanded="false" aria-controls="topRated">
-            Top Rated Users <span class="badge badge-light">{{ top_rated|length }}</span>
-        </button>
         <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#educationStreams" role="button" aria-expanded="false" aria-controls="educationStreams">
             Education <span class="badge badge-light">{{ education_streams|length }}</span>
         </button>
         <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#gamingStreams" role="button" aria-expanded="false" aria-controls="gamingStreams">
             Gaming <span class="badge badge-light">{{ gaming_streams|length }}</span>
+        </button>
+        <button type="button" class="btn btn-danger collapsed" data-toggle="collapse" href="#topRated" role="button" aria-expanded="false" aria-controls="topRated">
+            Top Rated Users
         </button>
         <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#musicStreams" role="button" aria-expanded="false" aria-controls="musicStreams">
             Music <span class="badge badge-light">{{ music_streams|length }}</span>
@@ -44,6 +53,7 @@
                         <p class="mb-1"></p>
                         <small>(Click here to view the stream)</small>
                       </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     {% endfor %}
                     </div>
                 </div>
@@ -68,6 +78,7 @@
                         <p class="mb-1"></p>
                         <small>(Click here to view the stream)</small>
                       </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     {% endfor %}
                     </div>
                 </div>
@@ -92,6 +103,7 @@
                         <p class="mb-1"></p>
                         <small>(Click here to view the stream)</small>
                       </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     {% endfor %}
                     </div>
                 </div>
@@ -116,6 +128,7 @@
                         <p class="mb-1"></p>
                         <small>(Click here to view the stream)</small>
                       </a>
+                        <li><a href="{% url 'chat:room' stream.pk %}">Talk about {{ stream.title }}!</a></li>
                     {% endfor %}
                     </div>
                 </div>
@@ -126,23 +139,45 @@
             <div class="col-8">
                 <div class="card h-auto p-3 overflow-auto">
                     <div class="list-group">
-                    {% if not top_rated %}
+                    {% if not top_rated_users %}
                         No Users!
                     {% else %}
                         <h1 style="display-4">Top Rated Users</h1>
-                    {% endif %}
-                    {% for top in top_rated %}
-                      <td class="text-left px-4">
-                        <a href="/{{top.user.username}}" class="text-white">
-                            <img src="{{top.avatar.url}}" class="rounded avatar img-thumbnail" />
-                            {{top.user.username|truncatechars:9}}{% if top.user.username|length > 9 %}..{% endif %}
-                        </a>
-                      </td>
+                    <table class="table  table-striped table-sm table-hover table-dark">
+                    <thead>
+                    <tr style="text-align:center">
+                        <th scope="col">User</th>
+                        <th scope="col">Followed by</th>
+                        {% if user.is_authenticated %}
+                        <th scope="col">Talk with him</th>
+                        <th scope="col">Follow him!</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for top_user in top_rated_users %}
+                        <td class="text-center px-4">
+                            <a href="{% url 'main_app:user' top_user.follows.user.username %}" class="text-white">
+                                <img src="{{top_user.follows.avatar.url}}" class="rounded avatar img-thumbnail" width="50" height="60"/>
+                                {{top_user.follows.user.username|truncatechars:9}}{% if top_user.follows.user.username|length > 9 %}..{% endif %}
+                            </a>
+                        </td>
+                        <td class="text-center">{{top_user.num_followers}} users</td>
+                        {% if user.is_authenticated and user.username != top_user.follows.user.username %}
+                        <td class="text-center"><li><a href="{% url 'chat:room' top_user.follows.user.username %}">Talk with {{ top_user.follows.user.username }}!</a></li> </td>
+                        <td class="text-center"><a href="{% url 'main_app:follow' top_user.follows.user.username %}">
+                        <span class="badge badge-primary badge-pill ">Follow</span></a></td>
+                        {% endif %}
+                        </tr>
                     {% endfor %}
+                    </tbody>
+                    </table>
+                    {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-        
+
+
 </main>
 {% endblock %}

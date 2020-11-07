@@ -44,14 +44,14 @@ class Stream(models.Model):
     ends_on = models.DateTimeField(blank=True, null=True)
     added_on = models.DateTimeField()
 
-    class Foo(models.IntegerChoices):
+    class Genre(models.IntegerChoices):
         education = '1', 'Education'
         gaming = '2', 'Gaming'
         music = '3', 'Music'
         blog = '4', 'Blog'
 
     genre = models.IntegerField(
-        choices=Foo.choices,
+        choices=Genre.choices,
         blank=True,
         null=True,
     )

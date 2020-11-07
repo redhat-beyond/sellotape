@@ -113,21 +113,19 @@ def follow(request, username):
 
 
 def explore(request):
-    # genres = Stream.objects.values('genre').annotate(Count('genre'))  #This will return all unique genres
-    # genre_streams = dict((genre['genre'], Stream.objects.all().filter(genre=genre['genre'])) for genre in genres)
 
     education_streams = Stream.objects.filter(genre='1')
     gaming_streams = Stream.objects.filter(genre='2')
     music_streams = Stream.objects.filter(genre='3')
     blog_streams = Stream.objects.filter(genre='4')
-    top_rated = UserFollower.objects.annotate(num_followers=Count('follows')).order_by('-num_followers')[:5]
+    top_rated_users = UserFollower.objects.annotate(num_followers=Count('follows')).order_by('-num_followers')[:5]
 
     context = {
         'education_streams': education_streams,
         'gaming_streams': gaming_streams,
         'music_streams': music_streams,
         'blog_streams': blog_streams,
-        'top_rated': top_rated,
+        'top_rated_users': top_rated_users,
     }
 
     return render(request, 'explore.html', context)
