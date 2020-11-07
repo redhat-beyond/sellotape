@@ -8,10 +8,10 @@ verify_ssl = true
 [packages]
 django = "*"
 pillow = "*"
-channels = "*"
 twisted = "*"
 social-auth-app-django = "*"
 requests = "*"
+channels = "==2.4.0"
 
 [requires]
 python_version = "3.8"
