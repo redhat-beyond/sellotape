@@ -1,8 +1,10 @@
 .vagrant/
 desktop.ini
 .DS_Store
+__pycache__/
+.idea
 
 # Django local SQLite3 DB
 db.sqlite3
 
-./sellotape/media
+sellotape/media/

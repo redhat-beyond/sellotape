@@ -1,16 +1,38 @@
 {% extends 'sellotape/base.html' %}
 {% load static %}
 {% block content %}
+{% include "navigation.html" %}
+{% include "footer.html" %}
 	<head>
 		<meta charset = "utf-8"/>
 		<title>Chat Room</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1519677584237-752f8853252e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&dl=manuel-sardo-dZOFaMG-0Q0-unsplash.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+        .container{
+            text-align: center;
+            margin: auto;
+            width: 70%;
+            height: 50%;
+            padding-top: 5vh;
+        }
+    </style>
 	</head>
 
 	<body>
-		<textarea id = "chat-log" cols = "100" rows = "40"></textarea><br>
-		<input id = "chat-message-input" type = "text" placeholder="Write your message..." size = "100"><br>
-		<input id = "chat-message-submit" type = "button" value = "Send">
+	<div class="container">
+		<textarea id = "chat-log" cols = "100" rows = "20" style=" background-color: rgba(255,255,255,0.5);"></textarea><br>
+		<input id = "chat-message-input" type = "text" placeholder="Type your message here..." size = "92">
+		<input id = "chat-message-submit" class="btn btn-danger btn-md" type = "button" value = "Send">
 		<script src = "{% static 'reconnecting-websocket.js' %}"></script>
+	</div>
+
 		{{ room_name|json_script:"room-name" }}
 
 		<script>
@@ -66,7 +88,7 @@
 			function timeStamp(timestamp) {
 				let prefix ='';
 				const timeDiff = Math.round((new Date().getTime() - new Date(timestamp).getTime())/60000) ;
-				if (timeDiff < 60 && timeDiff > 0 ) {
+				if (timeDiff < 60 && timeDiff >= 0 ) {
 					prefix = timeDiff + ' minutes ago';
 				} else if (timeDiff < 24*60 && timeDiff > 60) {
 					prefix = parseInt(timeDiff/60) + ' hours ago';

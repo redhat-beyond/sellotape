@@ -193,3 +193,40 @@ def complete_login(request):
     new_profile.twitch_link = ''
     new_profile.save()
     return redirect('/')
+
+
+def trending(request):
+    # Fetch data from the Twitch Featured Streams API
+
+    params = {
+        'limit': 30
+    }
+
+    headers = {
+        'Client-ID': 'o0jj0yongiu9o9g1a30gba0gjrt2id',
+        'Accept': 'application/vnd.twitchtv.v5+json'
+    }
+
+    url = 'https://api.twitch.tv/kraken/streams/featured'
+    req = requests.get(url, headers=headers, params=params)
+    data = req.json()
+
+    def destruct_stream_data(stream):
+        destructured = dict(
+            url=stream['stream']['channel']['url'],
+            text=stream['text'],
+            title=stream['title'],
+            image=stream['image'],
+        )
+
+        if (stream['image'].endswith('/TWITCH')):
+            destructured['use_twitch_logo'] = True
+
+        return destructured
+
+    streams = list(map(destruct_stream_data, data['featured']))
+
+    context = {
+        'streams': streams
+    }
+    return render(request, 'trending_live.html', context)

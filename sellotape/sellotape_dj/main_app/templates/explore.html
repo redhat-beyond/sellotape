@@ -150,7 +150,6 @@
                         <th scope="col">Followed by</th>
                         {% if user.is_authenticated %}
                         <th scope="col">Talk with him</th>
-                        <th scope="col">Follow him!</th>
                         {% endif %}
                     </tr>
                     </thead>
@@ -165,8 +164,6 @@
                         <td class="text-center">{{top_user.num_followers}} users</td>
                         {% if user.is_authenticated and user.username != top_user.follows.user.username %}
                         <td class="text-center"><li><a href="{% url 'chat:room' top_user.follows.user.username %}">Talk with {{ top_user.follows.user.username }}!</a></li> </td>
-                        <td class="text-center"><a href="{% url 'main_app:follow' top_user.follows.user.username %}">
-                        <span class="badge badge-primary badge-pill ">Follow</span></a></td>
                         {% endif %}
                         </tr>
                     {% endfor %}
