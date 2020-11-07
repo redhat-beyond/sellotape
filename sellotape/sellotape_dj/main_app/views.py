@@ -6,6 +6,7 @@ from django.core import files
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Stream, Profile, UserFollower
+from django.db.models import Count
 from social_django.models import UserSocialAuth
 
 
@@ -117,6 +118,25 @@ def follow(request, username):
     return redirect('main_app:user', username=username)
 
 
+def explore(request):
+
+    education_streams = Stream.objects.filter(genre='1')
+    gaming_streams = Stream.objects.filter(genre='2')
+    music_streams = Stream.objects.filter(genre='3')
+    blog_streams = Stream.objects.filter(genre='4')
+    top_rated_users = UserFollower.objects.annotate(num_followers=Count('follows')).order_by('-num_followers')[:5]
+
+    context = {
+        'education_streams': education_streams,
+        'gaming_streams': gaming_streams,
+        'music_streams': music_streams,
+        'blog_streams': blog_streams,
+        'top_rated_users': top_rated_users,
+    }
+
+    return render(request, 'explore.html', context)
+
+
 def complete_login(request):
     if request.user.is_anonymous:
         return redirect('/')
@@ -172,3 +192,40 @@ def complete_login(request):
     new_profile.twitch_link = ''
     new_profile.save()
     return redirect('/')
+
+
+def trending(request):
+    # Fetch data from the Twitch Featured Streams API
+
+    params = {
+        'limit': 30
+    }
+
+    headers = {
+        'Client-ID': 'o0jj0yongiu9o9g1a30gba0gjrt2id',
+        'Accept': 'application/vnd.twitchtv.v5+json'
+    }
+
+    url = 'https://api.twitch.tv/kraken/streams/featured'
+    req = requests.get(url, headers=headers, params=params)
+    data = req.json()
+
+    def destruct_stream_data(stream):
+        destructured = dict(
+            url=stream['stream']['channel']['url'],
+            text=stream['text'],
+            title=stream['title'],
+            image=stream['image'],
+        )
+
+        if (stream['image'].endswith('/TWITCH')):
+            destructured['use_twitch_logo'] = True
+
+        return destructured
+
+    streams = list(map(destruct_stream_data, data['featured']))
+
+    context = {
+        'streams': streams
+    }
+    return render(request, 'trending_live.html', context)
