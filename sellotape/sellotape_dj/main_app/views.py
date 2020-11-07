@@ -6,6 +6,7 @@ from django.core import files
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Stream, Profile, UserFollower
+from django.db.models import Count
 from social_django.models import UserSocialAuth
 
 
@@ -115,6 +116,25 @@ def follow(request, username):
     user_follow = UserFollower(user=follower_profile, follows=to_follow_profile)
     user_follow.save()
     return redirect('main_app:user', username=username)
+
+
+def explore(request):
+
+    education_streams = Stream.objects.filter(genre='1')
+    gaming_streams = Stream.objects.filter(genre='2')
+    music_streams = Stream.objects.filter(genre='3')
+    blog_streams = Stream.objects.filter(genre='4')
+    top_rated_users = UserFollower.objects.annotate(num_followers=Count('follows')).order_by('-num_followers')[:5]
+
+    context = {
+        'education_streams': education_streams,
+        'gaming_streams': gaming_streams,
+        'music_streams': music_streams,
+        'blog_streams': blog_streams,
+        'top_rated_users': top_rated_users,
+    }
+
+    return render(request, 'explore.html', context)
 
 
 def complete_login(request):
