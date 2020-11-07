@@ -7,7 +7,13 @@
 
 {% block content %}
 <main role="main" class="container-fluid main text-center main">
-    <h1 style="display-4">Add Stream</h1>
+    <br/>
+    <h3 class="main-title btn-secondary rounded-sm text-white mt-3 pb-1 align-middle">
+        <span style="font-size: 2rem;color:white">
+          <i class="fas fa-stream"></i>
+        </span>
+        Add Stream
+    </h3>
     <form action="" method="post">
         {% csrf_token %}
         {{ stream_form.as_p }}
