@@ -15,6 +15,11 @@
           <li class="nav-item {% if active == 'trending' %}active{% endif %}">
             <a class="nav-link" href="/trending">Trending Live</a>
           </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item {% if active == 'add-stream' %}active{% endif %}">
+            <a class="nav-link" href="/add-stream">Add Stream</a>
+            </li>
+            {% endif %}
         </ul>
         {% if user.is_authenticated %}
           <form class="form-inline mr-2" method='GET' class='' action='/search'>

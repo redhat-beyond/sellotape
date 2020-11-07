@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+    {% include "navigation.html" with active='add-stream' %}
+{% endblock %}
+
+{% block customlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'user.css' %}">
+{% endblock %}
+
+{% block content %}
+<main role="main" class="container-fluid main text-center main">
+    <br/>
+    <h3 class="main-title btn-secondary rounded-sm text-white mt-3 pb-1 align-middle">
+        <span style="font-size: 2rem;color:white">
+          <i class="fas fa-stream"></i>
+        </span>
+        Add Stream
+    </h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ stream_form.as_p }}
+        <input type="submit" value="Save new stream">
+    </form>
+</main>
+{% endblock %}

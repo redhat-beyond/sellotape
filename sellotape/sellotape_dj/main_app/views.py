@@ -6,6 +6,7 @@ from django.core import files
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Stream, Profile, UserFollower
+from .form import StreamForm
 from django.db.models import Count
 from social_django.models import UserSocialAuth
 
@@ -116,6 +117,23 @@ def follow(request, username):
     user_follow = UserFollower(user=follower_profile, follows=to_follow_profile)
     user_follow.save()
     return redirect('main_app:user', username=username)
+
+
+def add_stream(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':  # data sent by user
+            form = StreamForm(request.POST)
+            if form.is_valid():
+                stream = form.save(commit=False)  # this will not commit the info
+                profile = get_object_or_404(Profile, user__username=request.user.username)
+                stream.author = profile
+                stream.added_on = timezone.now()
+                stream.save()
+                form = StreamForm()  # display empty form after submit
+        else:  # display empty form
+            form = StreamForm()
+        return render(request, 'add_stream.html', {'stream_form': form})
+    return render(request, 'landing.html')
 
 
 def explore(request):
