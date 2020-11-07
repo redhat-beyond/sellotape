@@ -6,32 +6,32 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          <li class="nav-item {% if active == 'home' %}active{% endif %}">
+            <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% if active == 'explore' %}active{% endif %}">
             <a class="nav-link" href="#">Explore <span class="badge badge-light">4</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% if active == 'trending' %}active{% endif %}">
             <a class="nav-link" href="/trending">Trending Live</a>
           </li>
         </ul>
         {% if user.is_authenticated %}
-        <form class="form-inline mr-auto" method='GET' class='' action='/search'>
-          <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search" aria-label="Search" value="" autofocus="autofocus">
-        </form>
-        <div class="bg-dark text-white">
-           Welcome <a href="/{{user.username}}">{{user.username}}</a>&nbsp;
-            <a href="{% url 'logout' %}">
-             <input type="button" class="btn btn-info my-2 my-sm-0" value="Logout" />
-            </a>
-        </div>
-        {% else %}
-        <form class="form-inline mt-2 mt-md-0">
-            <a href="{% url 'login' %}">
-             <input type="button" class="btn btn-info my-2 my-sm-0" value="Sign up" />
-            </a>
-        </form>
+          <form class="form-inline mr-2" method='GET' class='' action='/search'>
+            <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search" aria-label="Search" value="" autofocus="autofocus">
+          </form>
+          <div class="bg-dark text-white">
+            Welcome <a href="/{{user.username}}">{{user.username}}</a>&nbsp;
+              <a href="{% url 'logout' %}">
+              <input type="button" class="btn btn-info my-2 my-sm-0" value="Logout" />
+              </a>
+          </div>
+          {% else %}
+          <form class="form-inline mt-2 mt-md-0">
+              <a href="{% url 'login' %}">
+              <input type="button" class="btn btn-info my-2 my-sm-0" value="Sign up" />
+              </a>
+          </form>
         {% endif %}
       </div>
     </nav>
