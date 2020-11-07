@@ -75,7 +75,7 @@ class UserTemplateTests(TestCase):
         date = timezone.datetime(2018, 1, 1)
 
         previous_streams = [
-            {'title': 'Stream 1', 'pk': 1, airs_on': date},
+            {'title': 'Stream 1', 'pk': 1, 'airs_on': date},
             {'title': 'Stream 2', 'pk': 2, 'airs_on': date}
         ]
 
