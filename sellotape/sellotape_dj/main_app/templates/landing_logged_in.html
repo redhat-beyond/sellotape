@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block customlinks %}
-<link rel="stylesheet" type="text/css" href="{% static 'landing_logged_in.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'landing_logged_in.css' %}">
+{% endblock %}
+
+{% block navigation %}
+    {% include "navigation.html" with active='home' %}
 {% endblock %}
 
 {% block content %}
-{% for stream in streams %}
-<p>aa</p>
-{% endfor %}
-
-<main role="main" class="container-fluid main text-center text-white main">
-    <div class="row pt-3 overflow-auto">
-        <div class="col-5">
+<main role="main" class="container main text-center text-white mt-5">
+    <div class="row pt-3 overflow-auto mt-3">
+        <div class="col-6">
             <h2 class="landing-title btn-secondary rounded-sm text-white">
                 <span style="font-size: 2rem;color:white">
-                  <i class="fas fa-stream"></i>
+                <i class="fas fa-stream"></i>
                 </span>
                 My Live Streams
             </h2>
@@ -40,7 +40,7 @@
                 <tr>
                     <td>
                         <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
-                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                        data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
                     </td>
@@ -52,10 +52,11 @@
             </table>
             {% endif %}
         </div>
-        <div class="col">
+
+        <div class="col-6">
             <h2 class="landing-title btn-secondary rounded-sm text-white">
                 <span style="font-size: 2rem;color:white">
-                  <i class="fas fa-stream"></i>
+                <i class="fas fa-stream"></i>
                 </span>
                 Live (Following)
             </h2>
@@ -87,7 +88,7 @@
                     </td>
                     <td>
                         <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
-                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                        data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
                     </td>
@@ -101,11 +102,11 @@
         </div>
     </div>
 
-    <div class="row pt-3 overflow-auto">
-        <div class="col-5">
+    <div class="row pt-3 overflow-auto mt-5">
+        <div class="col-6 mt-6">
             <h2 class="landing-title btn-secondary rounded-sm text-white">
                 <span style="font-size: 2rem;color:white">
-                  <i class="fas fa-stream"></i>
+                <i class="fas fa-stream"></i>
                 </span>
                 My Future Streams
             </h2>
@@ -131,7 +132,7 @@
                 <tr>
                     <td>
                         <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
-                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                        data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
                     </td>
@@ -146,7 +147,7 @@
         <div class="col">
             <h3 class="landing-title btn-secondary rounded-sm text-white">
                 <span style="font-size: 2rem;color:white">
-                  <i class="fas fa-stream"></i>
+                <i class="fas fa-stream"></i>
                 </span>
                 Future Streams (Following)
             </h3>
@@ -178,7 +179,7 @@
                     </td>
                     <td>
                         <a href="{{stream.link}}" class="text-white" data-toggle="tooltip" data-placement="right"
-                           data-html="true" title="<b>Description</b>: {{stream.description}}">
+                        data-html="true" title="<b>Description</b>: {{stream.description}}">
                             {{stream.title}}
                         </a>
                     </td>

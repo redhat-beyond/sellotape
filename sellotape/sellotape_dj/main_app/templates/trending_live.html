@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block navigation %}
+    {% include "navigation.html" with active='trending' %}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <h3 class="p-4 mt-3">
