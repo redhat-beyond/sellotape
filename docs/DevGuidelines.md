@@ -1,7 +1,7 @@
 # Developement Guidelines
 Thank you for your interest in making Sellotape better. 
 
-## Spinning up
+## Spinning Up
 We use [Vagrant](https://www.vagrantup.com/) to set up our virutal environment. To properly run the project, make sure that you have VirtualBox and Vagrant installed on your machine. Then:
 1. Clone this repository
 2. Open a shell prompt, and switch to the location of the repository
@@ -19,7 +19,7 @@ After SSHing to the virtual machine (using `vagrant ssh`) you can run the follow
 Note that upon project creation, `start_sellotape` is run automatically.
 
 ### Synced Files
-We don't expect you to fix bugs or develop new features on the virutal machine :stuck_out_tongue_closed_eyes: All the files in the repository are copied to a 2-way-synced (shared) folder on the virtual machine under the `/vagrant/` folder. Develop locally on your host machine while the server will restart itself at any file change.
+We don't expect you to fix bugs or develop new features on the virutal machine :stuck_out_tongue_closed_eyes: &nbsp; All the files in the repository are copied to a 2-way-synced (shared) folder on the virtual machine under the `/vagrant/` folder. Develop locally on your host machine while the server will restart itself at any file change.
 
 ## Conventions
 Take a look at the [architecture document](Architecture.md) to understand the project's technological stack and design. We follow the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide and use [Flake8](https://flake8.pycqa.org/en/latest/) as our enforcement linter. So before submitting any Pull Requests, make sure you pass the linter by running `flake8 . --count --max-line-length=127`.
