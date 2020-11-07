@@ -71,15 +71,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for object in profile_results %}
+                    {% for profile in profile_results %}
                         <td class="text-center px-4">
-                            <a href="{% url 'main_app:user' object.user.username %}" class="text-white">
-                                <img src="{{object.avatar.url}}" class="rounded avatar img-thumbnail" width="50" height="60"/>
-                                {{object.user.username|truncatechars:9}}{% if object.user.username|length > 9 %}..{% endif %}
+                            <a href="{% url 'main_app:user' profile.user.username %}" class="text-white">
+                                <img src="{{profile.avatar.url}}" class="rounded avatar img-thumbnail" width="50" height="60"/>
+                                {{profile.user.username|truncatechars:9}}{% if profile.user.username|length > 9 %}..{% endif %}
                             </a>
                         </td>
-                        {% if user.is_authenticated and user.username != object.user.username %}
-                        <td class="text-center"><li><a href="{% url 'chat:room' object.user.username %}">Talk with {{ object.user.username }}!</a></li> </td>
+                        {% if user.is_authenticated and user.username != profile.user.username %}
+                        <td class="text-center"><li><a href="{% url 'chat:room' profile.user.username %}">Talk with {{ profile.user.username }}!</a></li> </td>
                         {% endif %}
                         </tr>
                     {% endfor %}
