@@ -13,6 +13,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='stream',
             name='genre',
-            field=models.IntegerField(blank=True, choices=[(1, 'Education'), (2, 'Gaming'), (3, 'Music'), (4, 'Blog')], null=True),
+            field=models.IntegerField(blank=True, choices=[(1, 'Education'),
+                                                           (2, 'Gaming'),
+                                                           (3, 'Music'),
+                                                           (4, 'Blog')], null=True),
         ),
     ]

@@ -10,7 +10,6 @@ from django.db.models import Count
 from social_django.models import UserSocialAuth
 
 
-
 def landing_logged_on(request):
     # Gather my future&live streams
     logged_in_profile = get_object_or_404(Profile, user__username=request.user.username)
