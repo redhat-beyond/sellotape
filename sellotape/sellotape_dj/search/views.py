@@ -28,6 +28,9 @@ def search(request):
         stream_results_description,
         )
 
+    if stream_results is not None:
+        stream_results = sorted(stream_results, key=lambda instance: instance.pk, reverse=True)
+
     # Searching through the Profile, looking for profiles with username, first name and last name containing the query.
     profile_results_username = Profile.objects.filter(user__username__icontains=query)
     profile_results_firstname = Profile.objects.filter(user__first_name__icontains=query)
@@ -40,24 +43,13 @@ def search(request):
         profile_results_lastname,
         )
 
-    # combine both streams and profiles querysets chains.
-    queryset_chain = chain(
-        stream_results,
-        profile_results
-        )
-
-    # Checking if there were found results, if we did find, sort them.
-    if queryset_chain is not None:
-        if stream_results is not None or profile_results is not None:
-            qs = sorted(queryset_chain, key=lambda instance: instance.pk, reverse=True)
-
-    # Sums up number of results of streams and profiles.
-    count = len(list(qs))
+    if profile_results is not None:
+        profile_results = sorted(profile_results, key=lambda instance: instance.pk, reverse=True)
 
     # Creating the context relevant for rendering the HTML results file.
     context = {
-        'qs': qs,
         'query': query,
-        'count': count,
+        'stream_results': stream_results,
+        'profile_results': profile_results,
     }
     return render(request, 'sellotape/search.html', context)
