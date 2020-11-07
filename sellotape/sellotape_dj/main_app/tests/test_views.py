@@ -1,3 +1,4 @@
+from unittest.mock import Mock, patch
 from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
@@ -20,6 +21,34 @@ def create_streams(streams):
     """
     for stream in streams:
         Stream.objects.create(**stream)
+
+
+class TrendingLiveTests(TestCase):
+    @patch('main_app.views.requests.get')
+    def test_fetches_live_twitch_streams(self, mock_get_req):
+        """
+        Should fetch live streams from the Twitch API.
+        """
+
+        # Mock requests.get
+        mock_get_req.return_value = Mock()
+        mock_get_req.return_value.json.return_value = {
+            'featured': [
+                {'title': 'Test Stream 1', 'text': 'Toda', 'image': 'img/1', 'stream': {'channel': {'url': 'twitch.com/1'}}},
+                {'title': 'Test Stream 2', 'text': 'Raba', 'image': 'img/2', 'stream': {'channel': {'url': 'twitch.com/2'}}}
+            ],
+        }
+
+        url = reverse('main_app:trending', args=())
+        response = self.client.get(url)
+        streams = response.context['streams']
+
+        self.assertTrue(mock_get_req.called)
+        self.assertTrue(len(streams) > 0)
+        self.assertListEqual(streams, [
+            {'title': 'Test Stream 1', 'text': 'Toda', 'image': 'img/1', 'url': 'twitch.com/1'},
+            {'title': 'Test Stream 2', 'text': 'Raba', 'image': 'img/2', 'url': 'twitch.com/2'}
+        ])
 
 
 class UserViewTests(TestCase):

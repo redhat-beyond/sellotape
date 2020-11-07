@@ -10,6 +10,8 @@ django = "*"
 pillow = "*"
 channels = "*"
 twisted = "*"
+social-auth-app-django = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

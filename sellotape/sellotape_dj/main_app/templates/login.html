@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block navigation %}
+    {% include "navigation.html" with active='' %}
+{% endblock %}
+
 {% block customlinks %}
 <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 {% endblock %}
@@ -19,7 +23,7 @@
                 Hey there! please choose your preferred authentication method and join us here at Sellotape!
                 <div class="row justify-content-md-center">
                     <div class="col-3">
-                        <a href="" style="font-size: 1rem;color:#dc3545">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}" style="font-size: 1rem;color:#dc3545">
                           <span style="font-size: 5rem;color:#dc3545">
                             <i class="fab fa-google-plus"></i>
                           </span><br />
@@ -27,7 +31,7 @@
                         </a>
                     </div>
                     <div class="col-3">
-                        <a href="" style="font-size: 1rem;color:#3b5998">
+                        <a href="{% url 'social:begin' 'facebook' %}" style="font-size: 1rem;color:#3b5998">
                           <span style="font-size: 5rem;color:#3b5998">
                             <i class="fab fa-facebook"></i>
                           </span><br />

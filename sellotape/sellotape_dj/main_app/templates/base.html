@@ -22,7 +22,8 @@
     </head>
 
     <body>
-        {% include "navigation.html" %}
+        {% block navigation %}
+        {% endblock %}
 
         {% block content %}
         {% endblock %}

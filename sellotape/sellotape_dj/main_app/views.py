@@ -1,7 +1,15 @@
+import requests
+import tempfile
+import os.path
+
+from django.core import files
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Stream, Profile, UserFollower
 from .form import StreamForm
+from django.db.models import Count
+from social_django.models import UserSocialAuth
+
 
 
 def landing_logged_on(request):
@@ -127,3 +135,117 @@ def add_stream(request):
             form = StreamForm()
         return render(request, 'add_stream.html', {'stream_form': form})
     return render(request, 'landing.html')
+
+
+def explore(request):
+
+    education_streams = Stream.objects.filter(genre='1')
+    gaming_streams = Stream.objects.filter(genre='2')
+    music_streams = Stream.objects.filter(genre='3')
+    blog_streams = Stream.objects.filter(genre='4')
+    top_rated_users = UserFollower.objects.annotate(num_followers=Count('follows')).order_by('-num_followers')[:5]
+
+    context = {
+        'education_streams': education_streams,
+        'gaming_streams': gaming_streams,
+        'music_streams': music_streams,
+        'blog_streams': blog_streams,
+        'top_rated_users': top_rated_users,
+    }
+
+    return render(request, 'explore.html', context)
+
+
+def complete_login(request):
+    if request.user.is_anonymous:
+        return redirect('/')
+
+    profile = Profile.objects.filter(user=request.user)
+    if len(profile) > 0:
+        return redirect('/')
+
+    social_auths = UserSocialAuth.objects.filter(user=request.user)
+    if len(social_auths) <= 0:
+        return redirect('/')
+
+    picture = social_auths[0].extra_data["picture"]
+
+    # Facebook pictures are further wrapped in the following way
+    if type(picture) is dict:
+        picture = picture["data"]["url"]
+
+    # Steam the image from the url
+    pic_req = requests.get(picture, stream=True)
+
+    # Was the request OK?
+    if pic_req.status_code != requests.codes.ok:
+        # Nope, error handling, skip file etc etc etc
+        picture = None
+    else:
+        # Create a temporary file
+        lf = tempfile.NamedTemporaryFile()
+
+        # Get the filename from the url, used for saving later
+        file_name = os.path.basename(lf.name)
+
+        # Read the streamed image in sections
+        for block in pic_req.iter_content(1024 * 8):
+
+            # If no more file then stop
+            if not block:
+                break
+
+            # Write image block to temporary file
+            lf.write(block)
+
+    city = Profile.City.tel_aviv
+
+    new_profile = Profile()
+    new_profile.user = request.user
+    new_profile.city = city
+    if picture is not None:
+        # Save the temporary image to the model#
+        # This saves the model so be sure that is it valid
+        new_profile.avatar.save(file_name, files.File(lf))
+    new_profile.youtube_link = ''
+    new_profile.twitch_link = ''
+    new_profile.save()
+    return redirect('/')
+
+
+def trending(request):
+    # Fetch data from the Twitch Featured Streams API
+
+    params = {
+        'limit': 30
+    }
+
+    headers = {
+        'Client-ID': 'o0jj0yongiu9o9g1a30gba0gjrt2id',
+        'Accept': 'application/vnd.twitchtv.v5+json'
+    }
+
+    url = 'https://api.twitch.tv/kraken/streams/featured'
+    req = requests.get(url, headers=headers, params=params)
+    data = req.json()
+
+    def destruct_stream_data(stream):
+        destructured = dict(
+            url=stream['stream']['channel']['url'],
+            text=stream['text'],
+            title=stream['title'],
+            image=stream['image'],
+        )
+
+        if (stream['image'].endswith('/TWITCH')):
+            destructured['use_twitch_logo'] = True
+
+        return destructured
+
+    streams = list(map(destruct_stream_data, data['featured']))
+
+    context = {
+        'streams': streams
+    }
+    return render(request, 'trending_live.html', context)
+

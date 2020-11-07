@@ -22,6 +22,9 @@ class Profile(models.Model):
         default=City.tel_aviv,
     )
 
+    def __str__(self):
+        return '{} {}'.format(self.user.first_name, self.user.last_name)
+
 
 class UserFollower(models.Model):
     user = models.ForeignKey(Profile, related_name='users', on_delete=models.CASCADE)
@@ -43,6 +46,18 @@ class Stream(models.Model):
     airs_on = models.DateTimeField()
     ends_on = models.DateTimeField(blank=True, null=True)
     added_on = models.DateTimeField()
+
+    class Genre(models.IntegerChoices):
+        education = '1', 'Education'
+        gaming = '2', 'Gaming'
+        music = '3', 'Music'
+        blog = '4', 'Blog'
+
+    genre = models.IntegerField(
+        choices=Genre.choices,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         ordering = ['airs_on', '-added_on', 'author']
