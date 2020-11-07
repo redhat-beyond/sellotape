@@ -30,7 +30,7 @@ It is not necessary though for viewing schedueld streams of other users, as we e
         * Primary key: `user_follower_id`
         * `user_id` and `follower_id` are foreign keys referencing `user_id` in `users` table.
     * `Streams` table:
-        * `id`, `author`, `title`, `description`, `link`, `airs_on`, `ends_on`, `added_on`, `category`
+        * `id`, `author`, `title`, `description`, `link`, `airs_on`, `ends_on`, `added_on`, `genre`
         * Primary key: `id`
         * `author` has a foreign key referencing `user_id` in `users` table.
 

@@ -13,19 +13,23 @@ As a listener, you can follow your favorite streamers and keep up to date with t
 The platform strives to be a simple social network as users can follow and engage with each other.
 Our philosophy is that there should be no alienation between a streamer and a listener, and we engage and strive to push the interaction between them as possible.
 
+## Spinning a Dev Environment
+Head to the [Spinning Up section](docs/DevGuidelines.md#spinning-up) in the Development Guidelines for a quick set up of the platform on your machine.
+
+
 
 # Contributing
-Thank you for your interest in contributing to Sellotape! There are multiple ways and places you can contribute, and we're here to help facilitate that.
+Thank you for your interest in contributing to Sellotape :fire: There are multiple ways and places you can contribute, and we're here to help facilitate that.
 
-## Code contribution
+## Code contribution 
 If you'd like to fix bugs or add a new feature to Sellotape, make sure that you follow our [Development Guidlines](docs/DevGuidelines.md).
-Once you are done working, submit a Pull Request and assign one of the collaborators of the project. We will reviwed it when possible.
+Once you are done working, submit a Pull Request and assign one of the collaborators of the project. We will reviwed it as soon as possible :raised_hands:
 
 ## Reporting an issue
 If you have found what you believe to be an issue with Sellotape's platform please do not hesitate to file an issue on the GitHub project. When filing your issue please make sure you can express the issue with a reproducible test case, and that test case should not include any external dependencies. That is to say, the test case can be executed without anything more than runnign on the existing `master` branch of Sellotape in our Vagrant configuration.
 
 ## Becoming a collaborator
-By becoming a collaborator, contributors can have even more impact on the project. They can help other contributors by reviewing their contributions, triage issues and take an even bigger part in shaping the project's future. Individuals identified by us as making significant and valuable contributions may be made Collaborators and given commit access to the project. Activities taken into consideration include (but are not limited to) the quality of:
+By becoming a collaborator, contributors can have even more impact on the project :family: They can help other contributors by reviewing their contributions, triage issues and take an even bigger part in shaping the project's future. Individuals identified by us as making significant and valuable contributions may be made Collaborators and given commit access to the project. Activities taken into consideration include (but are not limited to) the quality of:
 * Code commits and pull requests.
 * Documentation commits
 * Commenting on issues
