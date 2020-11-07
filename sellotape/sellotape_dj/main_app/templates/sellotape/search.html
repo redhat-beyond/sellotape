@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block navigation %}
+    {% include "navigation.html" with active='' %}
+{% endblock %}
+
 {% block customlinks %}
 <link rel="stylesheet" type="text/css" href="{% static 'user.css' %}">
 {% endblock %}

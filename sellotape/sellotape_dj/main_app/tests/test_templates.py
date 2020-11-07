@@ -38,7 +38,8 @@ class UserTemplateTests(TestCase):
         live_stream = {
             'author': user,
             'title': 'Live Stream',
-            'link': 'linktomystream.com'
+            'link': 'linktomystream.com',
+            'pk': 1,
         }
 
         context = {
@@ -57,8 +58,8 @@ class UserTemplateTests(TestCase):
         date = timezone.datetime(2025, 1, 1)
 
         future_streams = [
-            {'title': 'Stream 1', 'airs_on': date},
-            {'title': 'Stream 2', 'airs_on': date}
+            {'title': 'Stream 1', 'pk': 1, 'airs_on': date},
+            {'title': 'Stream 2', 'pk': 2, 'airs_on': date}
         ]
 
         context = {'future_streams': future_streams}
@@ -74,8 +75,8 @@ class UserTemplateTests(TestCase):
         date = timezone.datetime(2018, 1, 1)
 
         previous_streams = [
-            {'title': 'Stream 1', 'airs_on': date},
-            {'title': 'Stream 2', 'airs_on': date}
+            {'title': 'Stream 1', 'pk': 1, 'airs_on': date},
+            {'title': 'Stream 2', 'pk': 2, 'airs_on': date}
         ]
 
         context = {'previous_streams': previous_streams}
