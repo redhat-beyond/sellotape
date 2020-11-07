@@ -193,4 +193,3 @@ def complete_login(request):
     new_profile.twitch_link = ''
     new_profile.save()
     return redirect('/')
-
