@@ -13,7 +13,7 @@ As a listener, you can follow your favorite streamers and keep up to date with t
 The platform strives to be a simple social network as users can follow and engage with each other.
 Our philosophy is that there should be no alienation between a streamer and a listener, and we engage and strive to push the interaction between them as possible.
 
-## Spinning a Dev Environment
+## Spinning Up a Dev Environment
 Head to the [Spinning Up section](docs/DevGuidelines.md#spinning-up) in the Development Guidelines for a quick set up of the platform on your machine.
 
 <br />
