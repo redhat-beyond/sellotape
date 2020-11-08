@@ -12,8 +12,8 @@
 {% block content %}
 <main role="main" class="container-fluid main text-center main">
 
-    <h3 class="main-title btn-secondary rounded-sm text-dark mt-3 pb-1 align-middle"
-        style="margin: 80px;">
+    <br/>
+       <h3 class="main-title btn-secondary rounded-sm text-white mt-3 pb-1 align-middle">
         <span style="font-size: 2rem;color:white">
           <i class="fas fa-stream"></i>
         </span>
@@ -29,7 +29,9 @@
             </a>
             {% endif %}
         {% endif %}
-    </h3> <br />
+        </h3>
+    <br/>
+
     <div class="btn-group block mb-2" role="group" aria-label="Stream buttons">
         <button type="button" class="btn btn-secondary" data-toggle="collapse" href="#previousStreams" role="button" aria-expanded="false" aria-controls="previousStreams">
             Past Streams <span class="badge badge-light">{{ previous_streams|length }}</span>
@@ -118,6 +120,6 @@
             </div>
         </div>
     </div>
-
+<br/><br/><br/>
 </main>
 {% endblock %}
